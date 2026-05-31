@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.cinetpay.com/seamless/main.js"></script>
+</head>
+<body>
+    <div>Montant : 26 000 FCFA</div>
+    <button onclick="startPayment()">Payer maintenant</button>
+
+    <script>
+        function startPayment() {
+            const transactionId = 'TRAN_' + Date.now() + '_' + Math.floor(Math.random() * 10000);
+            
+            CinetPay.setConfig({
+                apikey: '18669608363d551a8111654.39747988',
+                site_id: '443855',
+                notify_url: 'https://secretmystique.fr/', // URL fictive, pas utilisé
+                mode: 'PRODUCTION'
+            });
+            
+            CinetPay.getCheckout({
+                transaction_id: transactionId,
+                amount: 26000,
+                currency: 'XAF',
+                channels: 'ALL',
+                description: 'Paiement 26000 FCFA',
+                customer_name: "Client",
+                customer_surname: "",
+                customer_email: "client@secretmystique.fr",
+                customer_phone_number: "690000000"
+            });
+            
+            // Résultat directement dans la popup
+            CinetPay.waitResponse(function(data) {
+                if (data.status == "ACCEPTED") {
+                    alert("✅ Paiement réussi ! Transaction : " + transactionId);
+                    window.location.href = "https://secretmystique.fr/merci.html";
+                } else if (data.status == "REFUSED") {
+                    alert("❌ Paiement refusé. Veuillez réessayer.");
+                }
+            });
+            
+            CinetPay.onError(function(data) {
+                alert("⚠️ Erreur technique : " + JSON.stringify(data));
+            });
+        }
+    </script>
+</body>
+</html>
