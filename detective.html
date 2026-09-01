@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IBRAHIM Congo • Détective </title>
-    <!-- Polices professionnelles & icônes -->
+    <title>IBRAHIM CONGO · Enquêteur spécialisé</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* --- RESET --- */
         * {
             margin: 0;
             padding: 0;
@@ -18,55 +18,86 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f5f7fa;
-            color: #1a2b3c;
+            background: #eef0f2;
+            color: #0a1a2b;
             line-height: 1.5;
+            width: 100%;
             overflow-x: hidden;
-            width: 100%;
-        }
-
-        /* === HEADER AVEC IMAGE EN ÉVIDENCE (PAS EN ARRIÈRE-PLAN) === */
-        .header {
-            width: 100%;
-            background: linear-gradient(135deg, #0a1e2f 0%, #163a54 100%);
-            padding: 2rem 0 0 0;
         }
 
         .container {
-            max-width: 1300px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 2.5rem;
             width: 100%;
         }
 
-        /* Badge en haut */
-        .top-badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.12);
-            color: #ffddaa;
-            padding: 0.5rem 1.5rem;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            margin-bottom: 2rem;
-            backdrop-filter: blur(5px);
+        /* --- HEADER : ÉTAT / INSTITUTION --- */
+        .header {
+            width: 100%;
+            background: #0b1a26;
+            padding: 1.8rem 0 0 0;
+            position: relative;
+            isolation: isolate;
+            border-bottom: 4px solid #c9a87c;
         }
 
-        /* Disposition de l'en-tête avec photo à côté du texte */
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #c9a87c, #e8d5b0, #c9a87c);
+            opacity: 0.6;
+        }
+
+        .top-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: #d4cdc0;
+            padding: 0.4rem 2rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border: 1px solid rgba(201, 168, 124, 0.25);
+            margin-bottom: 2rem;
+        }
+
+        .top-badge i {
+            color: #c9a87c;
+        }
+
         .hero-row {
             display: flex;
             flex-wrap: wrap;
             gap: 2.5rem;
             align-items: center;
             justify-content: space-between;
-            padding-bottom: 3rem;
+            padding-bottom: 2.5rem;
         }
 
         .hero-text {
             flex: 1 1 400px;
-            color: white;
+            color: #fff;
+        }
+
+        .hero-text .grade {
+            display: inline-block;
+            background: rgba(201, 168, 124, 0.15);
+            color: #c9a87c;
+            padding: 0.2rem 1.2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 1px solid rgba(201, 168, 124, 0.3);
+            margin-bottom: 0.8rem;
         }
 
         .hero-text h1 {
@@ -74,146 +105,115 @@
             font-weight: 700;
             line-height: 1.1;
             letter-spacing: -0.02em;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         .hero-text h1 .prenom {
             display: block;
-            font-size: 2.8rem;
+            font-size: 2.4rem;
             font-weight: 300;
-            opacity: 0.9;
+            opacity: 0.7;
+            letter-spacing: 3px;
         }
 
         .hero-text h1 .nom {
             display: block;
-            font-size: 4.5rem;
-            font-weight: 700;
-            color: #ffd966;
-            border-left: 6px solid #ffd966;
-            padding-left: 1.2rem;
-            margin-top: 0.2rem;
+            font-size: 5rem;
+            font-weight: 800;
+            color: #f2e4d0;
+            border-left: 6px solid #c9a87c;
+            padding-left: 1.5rem;
+            margin-top: 0.1rem;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
         .hero-titre {
-            font-size: 1.5rem;
-            font-weight: 300;
-            margin: 2rem 0 1.8rem 0;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin: 1.5rem 0 1.8rem 0;
             display: flex;
             align-items: center;
             gap: 0.8rem;
             flex-wrap: wrap;
+            color: #bcc9d4;
+            letter-spacing: 0.5px;
         }
 
         .hero-titre i {
-            color: #ffd966;
-            font-size: 1.8rem;
+            color: #c9a87c;
+            font-size: 1.4rem;
         }
 
-        .hero-date {
+        .hero-meta {
             display: inline-flex;
             align-items: center;
-            gap: 1rem;
-            background: rgba(0, 0, 0, 0.25);
-            border: 1px solid rgba(255,255,255,0.15);
-            padding: 0.7rem 1.8rem;
-            border-radius: 50px;
-            font-size: 1.2rem;
+            gap: 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 0.5rem 2rem;
+            font-size: 0.9rem;
             font-weight: 400;
-            backdrop-filter: blur(4px);
+            color: #cdd7df;
         }
 
-        .hero-date i {
-            color: #ffd966;
+        .hero-meta i {
+            color: #c9a87c;
+            width: 1.2rem;
         }
 
-        /* Cadre photo - L'IMAGE EST VISIBLE, PAS EN ARRIÈRE-PLAN */
+        /* Photo */
         .photo-frame {
-            flex: 0 0 320px;
-            height: 400px;
-            border-radius: 30px;
+            flex: 0 0 300px;
+            height: 380px;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 30px 40px -15px rgba(0,0,0,0.5);
-            border: 4px solid rgba(255,255,240,0.25);
-            background: #2c4b63;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.7);
+            border: 3px solid rgba(201, 168, 124, 0.3);
+            background: #1f3342;
+            transition: 0.2s;
         }
 
         .photo-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 20%;
+            object-position: center 15%;
             display: block;
         }
 
-        /* Reste du contenu */
+        /* --- MAIN CONTENT --- */
         .main-content {
-            background: #f5f7fa;
-            padding: 4rem 0;
-            border-radius: 2rem 2rem 0 0;
-            margin-top: -1rem;
+            background: #eef0f2;
+            padding: 3.5rem 0 3rem;
+            margin-top: -0.5rem;
             position: relative;
             z-index: 5;
         }
 
         .section-title {
-            font-size: 2.4rem;
+            font-size: 1.8rem;
             font-weight: 600;
-            color: #0f2a3f;
+            color: #0f2638;
             margin-bottom: 2rem;
             letter-spacing: -0.02em;
+            text-transform: uppercase;
+            font-weight: 700;
         }
+
         .section-title span {
-            border-bottom: 4px solid #b49450;
-            padding-bottom: 0.3rem;
+            border-bottom: 4px solid #c9a87c;
+            padding-bottom: 0.4rem;
+            display: inline-block;
         }
 
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0 3rem;
-        }
-
-        .card {
-            background: white;
-            padding: 2.2rem 1.8rem;
-            border-radius: 24px;
-            box-shadow: 0 15px 30px -8px rgba(0, 35, 60, 0.12);
-            transition: transform 0.2s ease;
-            border: 1px solid #edf2f7;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 35px -10px #0a253870;
-            border-color: #dac29c;
-        }
-
-        .card i {
-            font-size: 2.5rem;
-            color: #b49450;
-            margin-bottom: 1.2rem;
-        }
-
-        .card h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #0f2a40;
-        }
-
-        .card p {
-            color: #3d5567;
-            font-size: 0.95rem;
-        }
-
-        /* Profil section */
+        /* --- PROFIL : autorité et institution --- */
         .profil-block {
-            background: white;
-            border-radius: 32px;
-            padding: 2.8rem;
-            margin: 3rem 0;
-            box-shadow: 0 20px 35px -12px #0a1f2e30;
-            border: 1px solid #f0e5d8;
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 2.8rem 3rem;
+            margin: 2.5rem 0 3.5rem;
+            box-shadow: 0 8px 25px -8px #0a1f2e20;
+            border-left: 6px solid #c9a87c;
         }
 
         .profil-flex {
@@ -231,217 +231,512 @@
         .quote {
             font-size: 1.4rem;
             font-weight: 400;
-            color: #244c66;
-            border-left: 6px solid #b49450;
-            padding-left: 1.5rem;
+            color: #1a3d56;
+            border-left: 6px solid #c9a87c;
+            padding-left: 1.8rem;
             margin-bottom: 1.8rem;
             font-style: italic;
+            line-height: 1.4;
+        }
+
+        .quote i {
+            color: #c9a87c;
+            margin-right: 0.3rem;
         }
 
         .profil-texte p {
-            font-size: 1.1rem;
-            margin-bottom: 1.2rem;
-            color: #2d4456;
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+            color: #1f3f55;
         }
 
         .profil-meta {
             flex: 1;
-            min-width: 200px;
-            background: #faf7f2;
-            border-radius: 28px;
-            padding: 2.2rem 1.5rem;
+            min-width: 180px;
+            background: #f6f4f0;
+            border-radius: 8px;
+            padding: 2rem 1.5rem;
             text-align: center;
-            border: 2px dashed #b49450;
-        }
-        .big-date {
-            font-size: 4rem;
-            font-weight: 700;
-            color: #163a54;
-            line-height: 1;
-        }
-        .big-date small {
-            font-size: 1.2rem;
-            font-weight: 400;
-            color: #8f6f3f;
+            border: 1px solid #e0d8cc;
         }
 
+        .profil-meta i {
+            font-size: 3rem;
+            color: #c9a87c;
+            margin: 0.5rem 0 0.2rem;
+        }
+
+        .profil-meta p {
+            font-weight: 600;
+            color: #0f2c40;
+            letter-spacing: 0.5px;
+        }
+
+        .profil-meta .sub {
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: #6a7f8f;
+            margin-top: 0.2rem;
+        }
+
+        /* --- ENGAGEMENTS : style "service public" --- */
+        .trust-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0 2rem;
+        }
+
+        .trust-item {
+            background: white;
+            padding: 1.8rem 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 15px -6px #0f2a3e18;
+            border: 1px solid #e6dfd6;
+            transition: 0.2s;
+        }
+
+        .trust-item:hover {
+            border-color: #c9a87c;
+            transform: translateY(-2px);
+        }
+
+        .trust-item i {
+            font-size: 2.6rem;
+            color: #c9a87c;
+            margin-bottom: 0.8rem;
+        }
+
+        .trust-item h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f2638;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .trust-item p {
+            font-size: 0.9rem;
+            color: #4f6e83;
+        }
+
+        /* --- MÉTHODOLOGIE : rigueur --- */
+        .method-block {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 2.8rem 3rem;
+            margin: 3rem 0;
+            border: 1px solid #e6dfd6;
+            box-shadow: 0 8px 20px -8px #0b1f2e18;
+            border-left: 6px solid #c9a87c;
+        }
+
+        .method-block h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #0f2638;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .method-block .subtitle {
+            color: #4f6e83;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem 2.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .method-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .method-step .num {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #c9a87c;
+            line-height: 1;
+            min-width: 2.8rem;
+        }
+
+        .method-step p {
+            font-size: 0.95rem;
+            color: #2a4a5e;
+        }
+
+        .method-step strong {
+            color: #0f2638;
+            font-weight: 700;
+        }
+
+        /* --- CARTES MISSIONS --- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin: 2.5rem 0 3rem;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 2rem 1.8rem;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px -8px rgba(15, 40, 60, 0.08);
+            transition: all 0.2s ease;
+            border: 1px solid #e6dfd6;
+            border-bottom: 4px solid #c9a87c;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px -10px #10243320;
+            border-color: #c9a87c;
+        }
+
+        .card i {
+            font-size: 2.2rem;
+            color: #c9a87c;
+            margin-bottom: 1rem;
+            display: inline-block;
+            background: #f6f4f0;
+            padding: 0.5rem;
+            border-radius: 4px;
+            width: 3.6rem;
+            text-align: center;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            color: #0f2638;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .card p {
+            color: #3d5d72;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* --- VALEURS : badges sobres --- */
         .ethos-bar {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 0.6rem 1.5rem;
             justify-content: center;
-            margin: 3rem 0;
-        }
-        .ethos-item {
-            background: white;
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            font-weight: 500;
-            box-shadow: 0 6px 12px #e0d6c8;
-            border: 1px solid #dacbb4;
-        }
-        .ethos-item i {
-            color: #b49450;
-            margin-right: 0.5rem;
+            margin: 3rem 0 2.5rem;
         }
 
+        .ethos-item {
+            background: #ffffff;
+            padding: 0.5rem 2rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            box-shadow: 0 4px 10px #d6cdbe30;
+            border: 1px solid #dcd3c6;
+            color: #1a3d56;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ethos-item i {
+            color: #c9a87c;
+            font-size: 0.9rem;
+        }
+
+        /* --- CONTACT : sobre et institutionnel --- */
         .contact-footer {
-            background: #0a1f30;
+            background: #0b1a26;
             color: white;
-            border-radius: 32px;
-            padding: 3rem;
-            margin: 3rem 0 0;
+            border-radius: 8px;
+            padding: 3rem 3rem;
+            margin: 3.5rem 0 1rem;
             text-align: center;
+            border-bottom: 4px solid #c9a87c;
         }
 
         .contact-footer h2 {
-            font-size: 2.2rem;
-            font-weight: 500;
-            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+            color: #f2e4d0;
+            text-transform: uppercase;
         }
+
         .contact-footer p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             opacity: 0.8;
             max-width: 600px;
-            margin: 0 auto 2rem;
+            margin: 0 auto 1.8rem;
+            color: #cbd7e2;
         }
+
         .confidential {
-            display: inline-block;
-            background: rgba(255,255,255,0.1);
-            padding: 0.8rem 2rem;
-            border-radius: 60px;
-            border: 1px solid rgba(255,215,0,0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.6rem 2rem;
+            border-radius: 4px;
+            border: 1px solid rgba(201, 168, 124, 0.25);
+            font-weight: 400;
+            color: #ebddcb;
+            font-size: 0.9rem;
         }
 
+        .confidential i {
+            color: #c9a87c;
+        }
+
+        .contact-links {
+            margin-top: 1.8rem;
+            display: flex;
+            gap: 2.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            color: #bcc9d4;
+            font-size: 0.95rem;
+        }
+
+        .contact-links span i {
+            color: #c9a87c;
+            margin-right: 0.4rem;
+        }
+
+        /* --- FOOTER --- */
         footer {
-            background: #f5f7fa;
+            background: #eef0f2;
             text-align: center;
-            padding: 2rem;
-            color: #617e96;
+            padding: 2rem 1rem 1.8rem;
+            color: #4f6e83;
+            font-size: 0.9rem;
+            border-top: 1px solid #dcd3c6;
         }
 
-        /* Responsive */
-        @media (max-width: 900px) {
-            .hero-text h1 .nom { font-size: 3.5rem; }
-            .hero-text h1 .prenom { font-size: 2.2rem; }
-            .photo-frame { flex: 0 0 260px; height: 340px; }
+        footer p:last-child {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            margin-top: 0.3rem;
         }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .hero-text h1 .nom { font-size: 3.8rem; }
+            .hero-text h1 .prenom { font-size: 2rem; }
+            .photo-frame { flex: 0 0 240px; height: 320px; }
+        }
+
         @media (max-width: 700px) {
-            .hero-row { flex-direction: column-reverse; text-align: center; }
-            .hero-text h1 .nom { border-left: none; padding-left: 0; }
-            .hero-titre { justify-content: center; }
-            .photo-frame { width: 100%; max-width: 400px; }
+            .hero-row {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            .hero-text h1 .nom {
+                border-left: none;
+                padding-left: 0;
+            }
+            .hero-titre {
+                justify-content: center;
+            }
+            .photo-frame {
+                width: 100%;
+                max-width: 360px;
+                height: 280px;
+                margin: 0 auto;
+            }
+            .profil-block {
+                padding: 2rem 1.5rem;
+            }
+            .contact-footer {
+                padding: 2rem 1.5rem;
+            }
+            .method-block {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 .nom { font-size: 2.8rem; }
+            .hero-text h1 .prenom { font-size: 1.6rem; }
+            .hero-meta { flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
         }
     </style>
 </head>
 <body>
-    <!-- HEADER : image à côté du texte (pas en arrière-plan) -->
-    <header class="header">
-        <div class="container">
-            <div class="top-badge">
-                <i class="fas fa-id-card"></i> DÉTECTIVE  • ENQUÊTEUR AGREÉ
-            </div>
 
-            <div class="hero-row">
-                <!-- Texte à gauche -->
-                <div class="hero-text">
-                    <h1>
-                        <span class="prenom">IBRAHIM</span>
-                        <span class="nom">CONGO</span>
-                    </h1>
-                    <div class="hero-titre">
-                        <i class="fas fa-binoculars"></i> 
-                        <span>Agent d'investigation · Expert en recherches</span>
-                    </div>
-                    <div class="hero-date">
-                        <i class="fas fa-calendar-alt"></i> Né le 03/03/2003
-                        <i class="fas fa-fingerprint" style="margin-left: 0.8rem;"></i>
-                    </div>
-                </div>
-
-                <!-- Photo personnelle (cadre à droite) -->
-                <div class="photo-frame">
-                    <img src="https://i.postimg.cc/MZBhszQW/Screenshot-20260305-125852.jpg" alt="IBRAHIM Congo - Détective">
-                </div>
-            </div>
+<!-- HEADER : style institutionnel -->
+<header class="header">
+    <div class="container">
+        <div class="top-badge">
+            <i class="fas fa-id-card"></i> ENQUÊTEUR SPÉCIALISÉ · MISSIONS D'INTÉRÊT PUBLIC
         </div>
-    </header>
 
-    <!-- Contenu principal (fond clair) -->
-    <div class="main-content">
-        <div class="container">
-            <!-- Bloc citation + profil -->
-            <div class="profil-block">
-                <div class="profil-flex">
-                    <div class="profil-texte">
-                        <div class="quote">
-                            <i class="fas fa-quote-left" style="color: #b49450;"></i> 
-                            Observer, analyser, révéler — avec intégrité.
-                        </div>
-                        <p><strong>IBRAHIM Congo</strong>, né le <strong>3 mars 2003</strong>, est un enquêteur formé aux méthodes classiques et digitales. Discret et méthodique, il possède un regard aiguisé sur les détails que d'autres ignorent. Chaque mission — qu'elle soit personnelle ou professionnelle — est traitée avec le même niveau d'exigence et de confidentialité.</p>
-                        <p>Sa jeunesse est un atout majeur : il comprend les réalités sociales contemporaines, les réseaux, les nouveaux modes de communication. Il intervient sur tout le territoire avec réactivité.</p>
-                    </div>
-                    <div class="profil-meta">
-                        <div class="big-date">
-                            03/03
-                            <small>2003</small>
-                        </div>
-                        <i class="fas fa-eye" style="font-size: 2.5rem; margin: 1rem 0; color: #b49450;"></i>
-                        <p style="font-weight: 500;">Né pour enquêter</p>
-                    </div>
+        <div class="hero-row">
+            <div class="hero-text">
+                <div class="grade"><i class="fas fa-shield-alt"></i>  Enquêteur diplômé d'État</div>
+                <h1>
+                    <span class="prenom">IBRAHIM</span>
+                    <span class="nom">CONGO</span>
+                </h1>
+                <div class="hero-titre">
+                    <i class="fas fa-search"></i>
+                    <span>Investigations · Analyses · Renseignements</span>
+                </div>
+                <div class="hero-meta">
+                    <span><i class="fas fa-map-pin"></i> Compétence nationale</span>
+                    <span><i class="fas fa-fingerprint"></i> Discrétion & intégrité</span>
                 </div>
             </div>
 
-            <h2 class="section-title"><span>Missions d'investigation</span></h2>
-            <div class="card-grid">
-                <div class="card">
-                    <i class="fas fa-street-view"></i>
-                    <h3>Filature & surveillance</h3>
-                    <p>Discrétion absolue en milieux urbains ou sensibles. Preuves visuelles et rapports circonstanciés.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-laptop"></i>
-                    <h3>Enquêtes numériques</h3>
-                    <p>Recherche de personnes, analyse de traces, e-réputation. Maîtrise des outils connectés.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-briefcase"></i>
-                    <h3>Vérifications professionnelles</h3>
-                    <p>Antécédents, références, conflits internes. Des éclairages fiables pour vos décisions.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-heart"></i>
-                    <h3>Affaires privées</h3>
-                    <p>Recherches de personnes, successions, infidélité. Tact et confidentialité absolue.</p>
-                </div>
-            </div>
-
-            <!-- Valeurs / qualités -->
-            <div class="ethos-bar">
-                <span class="ethos-item"><i class="fas fa-mask"></i> DISCRÉTION</span>
-                <span class="ethos-item"><i class="fas fa-search"></i> PERSPICACITÉ</span>
-                <span class="ethos-item"><i class="fas fa-balance-scale"></i> NEUTRALITÉ</span>
-                <span class="ethos-item"><i class="fas fa-hourglass-half"></i> RÉACTIVITÉ</span>
-            </div>
-
-            <!-- Zone contact professionnelle (sans email/téléphone) -->
-            <div class="contact-footer">
-                <h2>✺  Consultation confidentielle  ✺</h2>
-                <p>Pour toute mission ou information, une rencontre peut être organisée sur recommandation.</p>
-                <div class="confidential">
-                    <i class="fas fa-shield-alt"></i>  Contact sur présentation uniquement
-                </div>
-                <div style="margin-top: 2rem; display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
-                    <span><i class="far fa-envelope" style="color: #ffd966;"></i> prise de contact discrète</span>
-                    <span><i class="fas fa-phone" style="color: #ffd966;"></i> sur rendez-vous</span>
-                </div>
+            <div class="photo-frame">
+                <img src="https://i.postimg.cc/MZBhszQW/Screenshot-20260305-125852.jpg" alt="IBRAHIM Congo - Enquêteur">
             </div>
         </div>
     </div>
+</header>
 
-    <footer>
-        <p>© 2026 IBRAHIM Congo — Agent enquêteur </p>
-        <p style="font-size: 0.9rem; opacity: 0.7;">Secret professionnel · Toutes les informations sont protégées</p>
-    </footer>
+<!-- CONTENU PRINCIPAL -->
+<div class="main-content">
+    <div class="container">
+
+        <!-- PROFIL : autorité naturelle -->
+        <div class="profil-block">
+            <div class="profil-flex">
+                <div class="profil-texte">
+                    <div class="quote">
+                        <i class="fas fa-quote-left"></i> 
+                        Observer, analyser, restituer — avec rigueur et neutralité.
+                    </div>
+                    <p><strong>IBRAHIM Congo</strong> est un enquêteur formé aux méthodes classiques et numériques. Son approche allie la précision du terrain à la maîtrise des outils modernes. Chaque mission est conduite avec une <strong>exigence de vérité</strong> et un strict respect des cadres légaux.</p>
+                    <p>Sa connaissance fine des réalités sociales et des systèmes d'information lui permet d'intervenir avec <strong>efficacité et discrétion</strong> sur tout type de dossier : affaires personnelles, vérifications professionnelles ou investigations sensibles.</p>
+                </div>
+                <div class="profil-meta">
+                    <i class="fas fa-eye"></i>
+                    <p>Haute autorité</p>
+                    <p class="sub">Confiance & crédibilité</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ENGAGEMENTS : service public -->
+        <h2 class="section-title"><span>Engagements professionnels</span></h2>
+        <div class="trust-section">
+            <div class="trust-item">
+                <i class="fas fa-shield-alt"></i>
+                <h4>Confidentialité absolue</h4>
+                <p>Secret professionnel appliqué à chaque étape. Vos données sont protégées.</p>
+            </div>
+            <div class="trust-item">
+                <i class="fas fa-balance-scale"></i>
+                <h4>Déontologie stricte</h4>
+                <p>Méthodes légales et éthiques, dans le respect des lois et des droits.</p>
+            </div>
+            <div class="trust-item">
+                <i class="fas fa-file-alt"></i>
+                <h4>Rapports précis</h4>
+                <p>Comptes-rendus clairs, circonstanciés et exploitables juridiquement.</p>
+            </div>
+            <div class="trust-item">
+                <i class="fas fa-clock"></i>
+                <h4>Réactivité</h4>
+                <p>Intervention rapide, suivi rigoureux et disponibilité constante.</p>
+            </div>
+        </div>
+
+        <!-- MÉTHODOLOGIE : rigueur institutionnelle -->
+        <div class="method-block">
+            <h3><i class="fas fa-sitemap" style="color: #c9a87c; margin-right: 0.6rem;"></i>Méthodologie d'investigation</h3>
+            <p class="subtitle">Une approche structurée pour des résultats fiables et vérifiables.</p>
+            <div class="method-grid">
+                <div class="method-step">
+                    <span class="num">01</span>
+                    <p><strong>Analyse préliminaire</strong><br>Écoute, définition du périmètre, identification des axes prioritaires.</p>
+                </div>
+                <div class="method-step">
+                    <span class="num">02</span>
+                    <p><strong>Collecte & recoupement</strong><br>Sources multiples, vérifications croisées, enquête terrain et numérique.</p>
+                </div>
+                <div class="method-step">
+                    <span class="num">03</span>
+                    <p><strong>Validation des faits</strong><br>Chaque élément est contrôlé et validé avant intégration au dossier.</p>
+                </div>
+                <div class="method-step">
+                    <span class="num">04</span>
+                    <p><strong>Rapport & transmission</strong><br>Synthèse claire, preuves structurées et préconisations opérationnelles.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MISSIONS -->
+        <h2 class="section-title"><span>Domaines d'intervention</span></h2>
+        <div class="card-grid">
+            <div class="card">
+                <i class="fas fa-street-view"></i>
+                <h3>Surveillance & filature</h3>
+                <p>Observations discrètes en milieux urbains ou sensibles. Preuves visuelles et rapports détaillés.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-laptop"></i>
+                <h3>Enquêtes numériques</h3>
+                <p>Recherche de personnes, analyse de traces, e-réputation. Maîtrise des outils connectés.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-briefcase"></i>
+                <h3>Vérifications professionnelles</h3>
+                <p>Antécédents, références, conflits internes. Des éclairages fiables pour vos décisions.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-heart"></i>
+                <h3>Affaires privées</h3>
+                <p>Recherches de personnes, successions, infidélité. Tact et confidentialité absolue.</p>
+            </div>
+        </div>
+
+        <!-- VALEURS : sobres -->
+        <div class="ethos-bar">
+            <span class="ethos-item"><i class="fas fa-mask"></i> Discrétion</span>
+            <span class="ethos-item"><i class="fas fa-search"></i> Perspicacité</span>
+            <span class="ethos-item"><i class="fas fa-balance-scale"></i> Neutralité</span>
+            <span class="ethos-item"><i class="fas fa-hourglass-half"></i> Réactivité</span>
+            <span class="ethos-item"><i class="fas fa-check-circle"></i> Fiabilité</span>
+        </div>
+
+        <!-- CONTACT : institutionnel -->
+        <div class="contact-footer">
+            <h2>✺  Prise de contact confidentielle  ✺</h2>
+            <p>Pour toute mission ou information, une rencontre peut être organisée sur présentation de justificatifs.</p>
+            <div class="confidential">
+                <i class="fas fa-shield-alt"></i>  Contact sur présentation uniquement
+            </div>
+            <div class="contact-links">
+                <span><i class="far fa-envelope"></i> demande d'entretien</span>
+                <span><i class="fas fa-phone"></i> sur rendez-vous</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 IBRAHIM CONGO — Enquêteur spécialisé</p>
+    <p>Secret professionnel · Toutes les informations sont protégées</p>
+</footer>
+
 </body>
 </html>
