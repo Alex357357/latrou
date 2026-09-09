@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NovaVision · Solutions digitales</title>
+  <!-- Google Fonts + FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f9fafc;
+      color: #1e2a4a;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* HEADER */
+    header {
+      background: #0b1a33;
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.6rem;
+      letter-spacing: -0.5px;
+    }
+    .logo i {
+      color: #f5b342;
+      margin-right: 8px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #eef2f7;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #f5b342;
+    }
+
+    .btn-outline-light {
+      background: transparent;
+      border: 1.5px solid #f5b342;
+      color: #f5b342;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: 0.2s;
+      cursor: default;
+    }
+    .btn-outline-light:hover {
+      background: #f5b342;
+      color: #0b1a33;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 70px 0 80px;
+      background: linear-gradient(145deg, #ffffff 0%, #f0f4fe 100%);
+    }
+
+    .hero-grid {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .hero-content {
+      flex: 1 1 50%;
+    }
+    .hero-content h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: #0b1a33;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .hero-content h1 i {
+      color: #f5b342;
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      color: #2c3e66;
+      margin-bottom: 28px;
+      max-width: 500px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .btn-primary {
+      background: #0b1a33;
+      color: white;
+      padding: 14px 32px;
+      border-radius: 60px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.2s;
+      box-shadow: 0 6px 14px rgba(11, 26, 51, 0.15);
+    }
+    .btn-primary:hover {
+      background: #1a2f52;
+      transform: translateY(-2px);
+    }
+
+    .btn-whatsapp {
+      background: #25d366;
+      color: white;
+      padding: 14px 32px;
+      border-radius: 60px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.2s;
+      box-shadow: 0 6px 14px rgba(37, 211, 102, 0.25);
+    }
+    .btn-whatsapp:hover {
+      background: #1fbd5a;
+      transform: translateY(-2px);
+    }
+
+    .hero-image {
+      flex: 1 1 40%;
+      background: #dce4f0;
+      border-radius: 32px;
+      padding: 40px 20px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+      color: #0b1a33;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+    .hero-image i {
+      font-size: 4.5rem;
+      color: #0b1a33;
+      opacity: 0.6;
+      margin-bottom: 8px;
+    }
+
+    /* SECTION TITLES */
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #0b1a33;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: #f5b342;
+      margin-top: 8px;
+      border-radius: 8px;
+    }
+
+    .section-sub {
+      color: #3a4e7a;
+      margin-bottom: 40px;
+    }
+
+    /* SERVICES */
+    .services {
+      padding: 70px 0;
+      background: white;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 32px 20px 28px;
+      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.04);
+      transition: 0.25s ease;
+      border: 1px solid #edf2f9;
+      text-align: center;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 38px rgba(11, 26, 51, 0.08);
+      border-color: #d1def0;
+    }
+
+    .card i {
+      font-size: 2.8rem;
+      color: #0b1a33;
+      background: #e9effa;
+      padding: 16px;
+      border-radius: 60px;
+      margin-bottom: 18px;
+    }
+    .card h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .card p {
+      color: #3e5278;
+      font-size: 0.95rem;
+    }
+
+    /* ABOUT */
+    .about {
+      padding: 70px 0;
+      background: #f4f8ff;
+    }
+
+    .about-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .about-text {
+      flex: 2 1 300px;
+    }
+    .about-text p {
+      font-size: 1.05rem;
+      color: #1e2f51;
+      margin-bottom: 16px;
+    }
+    .about-text ul {
+      list-style: none;
+      margin-top: 16px;
+    }
+    .about-text ul li {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+    }
+    .about-text ul li i {
+      color: #f5b342;
+      font-size: 1.3rem;
+      width: 28px;
+    }
+
+    .about-stats {
+      flex: 1 1 200px;
+      background: white;
+      padding: 30px 20px;
+      border-radius: 40px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.02);
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #0b1a33;
+    }
+    .stat-label {
+      color: #3f547b;
+    }
+
+    /* CONTACT */
+    .contact {
+      padding: 70px 0;
+      background: white;
+    }
+
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .contact-form {
+      flex: 2 1 320px;
+    }
+    .contact-form form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      padding: 16px 20px;
+      border: 1px solid #dfe7f2;
+      border-radius: 30px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      transition: 0.2s;
+      background: #fbfdff;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: #0b1a33;
+      box-shadow: 0 0 0 4px rgba(11, 26, 51, 0.05);
+    }
+    .contact-form textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .btn-submit {
+      background: #0b1a33;
+      color: white;
+      border: none;
+      padding: 16px 28px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: default;
+      transition: 0.2s;
+      align-self: flex-start;
+    }
+    .btn-submit:hover {
+      background: #1f3460;
+    }
+
+    .contact-info {
+      flex: 1 1 240px;
+      background: #f4f8ff;
+      border-radius: 40px;
+      padding: 32px 24px;
+    }
+    .contact-info h4 {
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+    .contact-info p {
+      margin: 14px 0;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .contact-info i {
+      width: 28px;
+      color: #f5b342;
+      font-size: 1.3rem;
+    }
+    .contact-info a {
+      color: #0b1a33;
+      text-decoration: none;
+    }
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+
+    .btn-whatsapp-direct {
+      background: #25d366;
+      color: white;
+      border: none;
+      padding: 14px 26px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 12px;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .btn-whatsapp-direct:hover {
+      background: #1bb853;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #0b1a33;
+      color: #d3dcec;
+      padding: 40px 0 24px;
+    }
+
+    .footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+      border-bottom: 1px solid #253b5c;
+      padding-bottom: 24px;
+      margin-bottom: 20px;
+    }
+
+    .footer-brand {
+      font-weight: 600;
+      font-size: 1.3rem;
+    }
+    .footer-brand i {
+      color: #f5b342;
+      margin-right: 6px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: #bcc9e0;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .footer-links a:hover {
+      color: #f5b342;
+    }
+
+    .footer-copy {
+      text-align: center;
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 800px) {
+      .header-inner {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+      }
+      nav {
+        justify-content: center;
+        gap: 18px;
+      }
+      .hero-content h1 {
+        font-size: 2.4rem;
+      }
+      .hero-grid {
+        flex-direction: column-reverse;
+      }
+      .hero-image {
+        width: 100%;
+      }
+      .section-title {
+        font-size: 1.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav a {
+        font-size: 0.85rem;
+      }
+      .btn-outline-light {
+        padding: 6px 16px;
+        font-size: 0.8rem;
+      }
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      .hero-buttons .btn-primary,
+      .hero-buttons .btn-whatsapp {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+      }
+      .contact-info {
+        padding: 24px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="container header-inner">
+    <div class="logo">
+      <i class="fas fa-cube"></i> NovaVision
+    </div>
+    <nav>
+      <a href="#">Accueil</a>
+      <a href="#services">Services</a>
+      <a href="#about">À propos</a>
+      <a href="#contact">Contact</a>
+      <span class="btn-outline-light"><i class="fas fa-paper-plane"></i> Nous contacter</span>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <h1>Construisez <i class="fas fa-rocket"></i> l'avenir digital</h1>
+      <p>Nous créons des expériences web sur-mesure pour donner vie à vos ambitions. Innovation, performance et design.</p>
+      <div class="hero-buttons">
+        <a href="#about" class="btn-primary"><i class="fas fa-arrow-right"></i> En savoir plus</a>
+        <a href="https://wa.me/22677020069" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Contacter sur WhatsApp</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <i class="fas fa-laptop-code"></i>
+      <p>Solutions digitales</p>
+      <span style="font-size:0.9rem; opacity:0.7;">· 360° ·</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <h2 class="section-title">Nos services</h2>
+    <p class="section-sub">Des prestations clés pour propulser votre activité</p>
+    <div class="cards-grid">
+      <div class="card">
+        <i class="fas fa-globe"></i>
+        <h3>Web sur mesure</h3>
+        <p>Sites vitrine, e-commerce et applications web robustes, pensés pour convertir.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-mobile-alt"></i>
+        <h3>Mobile-first</h3>
+        <p>Design responsive et expérience utilisateur optimale sur tous les écrans.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-chart-line"></i>
+        <h3>Stratégie digitale</h3>
+        <p>Audit, SEO et conseil pour maximiser votre visibilité et votre croissance.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-shield-alt"></i>
+        <h3>Sécurité & performance</h3>
+        <p>Hébergement, maintenance et protection de vos données sensibles.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container about-wrapper">
+    <div class="about-text">
+      <h2 class="section-title">À propos</h2>
+      <p><strong>NovaVision</strong> est un studio digital basé à Ouagadougou, Burkina Faso. Nous accompagnons les entreprises dans leur transformation numérique avec une approche humaine et technique.</p>
+      <p>Notre vision : allier créativité, robustesse et engagement pour livrer des projets qui dépassent les attentes.</p>
+      <ul>
+        <li><i class="fas fa-check-circle"></i> Expertise full-stack</li>
+        <li><i class="fas fa-check-circle"></i> Design centré utilisateur</li>
+        <li><i class="fas fa-check-circle"></i> Support & accompagnement</li>
+      </ul>
+    </div>
+    <div class="about-stats">
+      <div class="stat-number">45+</div>
+      <div class="stat-label">Projets livrés</div>
+      <div style="margin-top: 16px;"><i class="fas fa-star" style="color:#f5b342;"></i> 4.9 / 5</div>
+      <div class="stat-label">Satisfaction client</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container contact-grid">
+    <div class="contact-form">
+      <h2 class="section-title">Contactez-nous</h2>
+      <p class="section-sub">Un projet ? Une question ? Échangeons !</p>
+      <form>
+        <input type="text" placeholder="Nom complet" />
+        <input type="email" placeholder="Email" />
+        <input type="tel" placeholder="Téléphone" />
+        <textarea placeholder="Votre message..."></textarea>
+        <button type="button" class="btn-submit"><i class="fas fa-paper-plane"></i> Envoyer</button>
+      </form>
+    </div>
+    <div class="contact-info">
+      <h4><i class="fas fa-address-card" style="color:#0b1a33;"></i> Coordonnées</h4>
+      <p><i class="fas fa-map-pin"></i> Ouagadougou, Burkina Faso</p>
+      <p><i class="fas fa-envelope"></i> 
+        <a href="mailto:ibrahimcongo802@gmail.com">ibrahimcongo802@gmail.com</a><br>
+        <a href="mailto:informatique7092@gmail.com">informatique7092@gmail.com</a>
+      </p>
+      <p><i class="fas fa-phone-alt"></i> <a href="tel:+22677020069">+226 77 02 00 69</a></p>
+      <a href="https://wa.me/22677020069" class="btn-whatsapp-direct"><i class="fab fa-whatsapp"></i> Discuter sur WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <i class="fas fa-cube"></i> NovaVision
+      </div>
+      <div class="footer-links">
+        <a href="#">Accueil</a>
+        <a href="#services">Services</a>
+        <a href="#about">À propos</a>
+        <a href="#contact">Contact</a>
+        <a href="#">Mentions légales</a>
+      </div>
+    </div>
+    <div class="footer-copy">
+      &copy; 2026 NovaVision · Tous droits réservés.
+    </div>
+  </div>
+</footer>
+
+<!-- JavaScript -->
+<script>
+  (function() {
+    console.log('Landing page NovaVision · prête');
+  })();
+</script>
+
+</body>
+</html>
