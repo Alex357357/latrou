@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin PMU - Gestion Complète</title>
+    <style>
+        :root {
+            --primary: #007bff;
+            --success: #28a745;
+            --danger: #dc3545;
+            --bg: #f4f7f6;
+            --card-bg: #ffffff;
+            --text: #333;
+            --border: #ddd;
+            --warning: #ffc107;
+        }
+
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--bg); margin: 0; padding: 20px; color: var(--text); }
+        .container { max-width: 1000px; margin: auto; background: var(--card-bg); padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        
+        h1 { text-align: center; color: #2c3e50; margin-bottom: 25px; }
+        
+        /* Onglets */
+        .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+        .tab-btn { flex: 1; min-width: 150px; padding: 12px; border: none; background: #e9ecef; color: #495057; font-size: 15px; font-weight: bold; cursor: pointer; border-radius: 8px 8px 0 0; transition: all 0.3s; }
+        .tab-btn:hover { background: #dee2e6; }
+        .tab-btn.active { background: var(--primary); color: white; box-shadow: 0 2px 5px rgba(0,123,255,0.3); }
+        
+        /* En-tête de section */
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 5px solid var(--primary); }
+        .section-header h2 { margin: 0; font-size: 1.2rem; color: #2c3e50; }
+        .badge { background: var(--primary); color: white; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; }
+
+        /* Formulaires généraux */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group.full-width { grid-column: span 2; }
+        label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.9rem; color: #555; }
+        input[type="text"], input[type="number"], input[type="file"], select { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; transition: border 0.3s; }
+        input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,123,255,0.1); }
+        
+        button.submit-btn { background-color: var(--success); color: white; padding: 12px 20px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%; transition: background 0.3s; }
+        button.submit-btn:hover { background-color: #218838; }
+        button.submit-btn:disabled { background-color: #ccc; cursor: not-allowed; }
+        
+        .status-msg { margin-top: 15px; font-weight: bold; text-align: center; padding: 10px; border-radius: 6px; display: none; }
+        .status-msg.success { display: block; background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .status-msg.error { display: block; background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .status-msg.loading { display: block; background: #cce5ff; color: #004085; border: 1px solid #b8daff; }
+
+        /* Liste des articles */
+        .articles-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; margin-top: 20px; }
+        .article-card { border: 1px solid var(--border); padding: 15px; border-radius: 8px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.2s; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
+        .article-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .article-card h3 { margin: 0 0 10px 0; font-size: 1rem; color: var(--primary); border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .article-card p { margin: 5px 0; font-size: 0.9rem; color: #555; }
+        .article-card img { max-width: 100%; height: 120px; object-fit: cover; border-radius: 6px; margin-top: 10px; border: 1px solid #eee; }
+        .no-image { display: inline-block; padding: 10px; background: #f8d7da; color: #721c24; border-radius: 6px; font-size: 0.8rem; margin-top: 10px; }
+        
+        .hidden { display: none !important; }
+
+        /* Styles spécifiques pour la section Programme */
+        .programme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .programme-card { border: 2px solid var(--border); border-radius: 10px; padding: 15px; text-align: center; background: #fafafa; }
+        .programme-card h3 { margin-top: 0; color: var(--primary); }
+        .programme-card img { width: 100%; height: 180px; object-fit: contain; border-radius: 6px; border: 1px solid #eee; background: #fff; margin-bottom: 10px; }
+        .programme-card .btn-modifier { background: var(--primary); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 14px; width: 100%; }
+        .programme-card .btn-modifier:hover { background: #0069d9; }
+        .programme-card input[type="file"] { margin-bottom: 10px; font-size: 12px; }
+
+        /* Styles spécifiques PMU Gratuit */
+        .pmu-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .pmu-tab-btn { flex: 1; padding: 10px; border: 2px solid var(--primary); background: white; color: var(--primary); font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.3s; }
+        .pmu-tab-btn.active { background: var(--primary); color: white; }
+        .prono-list { margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 10px; }
+        .prono-item { font-size: 0.85rem; color: #444; background: #f1f3f5; padding: 5px; border-radius: 4px; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; }
+        .prono-item strong { color: #007bff; }
+        .prono-item .btn-delete-prono { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 12px; padding: 0 5px; }
+
+        /* Boutons d'action sur les cartes */
+        .card-actions { display: flex; gap: 5px; margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px; }
+        .btn-edit, .btn-delete { flex: 1; padding: 6px; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; }
+        .btn-edit { background: var(--warning); color: #333; }
+        .btn-delete { background: var(--danger); color: white; }
+        .btn-edit:hover { background: #e0a800; }
+        .btn-delete:hover { background: #c82333; }
+
+        /* Modale de modification */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: white; padding: 25px; border-radius: 10px; width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
+        .modal-content h3 { margin-top: 0; color: var(--primary); }
+        .modal-actions { display: flex; gap: 10px; margin-top: 15px; }
+        .modal-actions button { flex: 1; padding: 10px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .modal-actions .btn-cancel { background: #6c757d; color: white; }
+        .modal-actions .btn-save { background: var(--success); color: white; }
+
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .programme-grid { grid-template-columns: 1fr; }
+            .pmu-tabs { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🛠️ Gestion des Paris PMU</h1>
+
+    <!-- Onglets principaux -->
+    <div class="tabs">
+        <button class="tab-btn active" data-target="gratuit">🆓 Paris Gratuit</button>
+        <button class="tab-btn" data-target="payant">💰 Paris Payant</button>
+        <button class="tab-btn" data-target="programme">🖼️ Programme Images</button>
+        <button class="tab-btn" data-target="pmu_gratuit">📊 PMU Gratuit (Pronos)</button>
+    </div>
+
+    <!-- ================= SECTION PARIS GRATUIT ================= -->
+    <div id="section-gratuit" class="section-content">
+        <div class="section-header">
+            <h2>Paris Gratuit (Collection: PARIS_GRATUIT)</h2>
+            <div>Articles : <span id="count-gratuit" class="badge">0</span></div>
+        </div>
+        <form id="form-gratuit" class="article-form">
+            <div class="form-grid">
+                <div class="form-group"><label>Date (JJ/MM/AAAA)</label><input type="text" name="date" required placeholder="17/08/2026"></div>
+                <div class="form-group"><label>Image</label><input type="file" name="image" accept="image/*" required></div>
+                <div class="form-group"><label>Nb Publicité</label><input type="number" name="nbpublicite" required value="0"></div>
+                <div class="form-group"><label>Pronostic</label><input type="text" name="pronostic" required placeholder="Ex: 1 2 3 4 5"></div>
+                <div class="form-group full-width"><label>Score Exact</label><input type="text" name="scoreexacte" required placeholder="Ex: 2-1"></div>
+            </div>
+            <button type="submit" class="submit-btn">Ajouter l'article</button>
+            <div class="status-msg"></div>
+        </form>
+        <div class="articles-list" id="list-gratuit"></div>
+    </div>
+
+    <!-- ================= SECTION PARIS PAYANT ================= -->
+    <div id="section-payant" class="section-content hidden">
+        <div class="section-header">
+            <h2>Paris Payant (Collection: PARIS_PAYANT)</h2>
+            <div>Articles : <span id="count-payant" class="badge">0</span></div>
+        </div>
+        <form id="form-payant" class="article-form">
+            <div class="form-grid">
+                <div class="form-group"><label>Date (JJ/MM/AAAA)</label><input type="text" name="date" required placeholder="09/09/2026"></div>
+                <div class="form-group"><label>Image</label><input type="file" name="image" accept="image/*" required></div>
+                <div class="form-group full-width"><label>Score Exact 1</label><input type="text" name="scoreexacte1" required placeholder="Ex: 2-1"></div>
+            </div>
+            <button type="submit" class="submit-btn">Ajouter l'article</button>
+            <div class="status-msg"></div>
+        </form>
+        <div class="articles-list" id="list-payant"></div>
+    </div>
+
+    <!-- ================= SECTION PROGRAMME IMAGES ================= -->
+    <div id="section-programme" class="section-content hidden">
+        <div class="section-header">
+            <h2>Programme Images (Collection: programme_images)</h2>
+            <div>Documents : <span id="count-programme" class="badge">2</span></div>
+        </div>
+        <div class="programme-grid" id="programme-container">
+            <p style="text-align:center; color:#888;">Chargement des images...</p>
+        </div>
+    </div>
+
+    <!-- ================= SECTION PMU GRATUIT (PRONOSTICS) ================= -->
+    <div id="section-pmu_gratuit" class="section-content hidden">
+        <div class="section-header">
+            <h2>PMU Gratuit - Pronostics (Collection: PMU_GRATUIT)</h2>
+            <div>Documents : <span id="count-pmu_gratuit" class="badge">0</span></div>
+        </div>
+
+        <div class="pmu-tabs">
+            <button class="pmu-tab-btn active" data-pmu-target="nouveau">➕ Créer un nouveau document</button>
+            <button class="pmu-tab-btn" data-pmu-target="ajouter">📝 Ajouter un pronostic</button>
+        </div>
+
+        <!-- Formulaire 1 : Créer un nouveau document -->
+        <div id="pmu-form-nouveau" class="pmu-form">
+            <form id="form-pmu_nouveau" class="article-form">
+                <div class="form-grid">
+                    <div class="form-group"><label>Nom (ex: tocar2)</label><input type="text" name="nom" required placeholder="Nom du document"></div>
+                    <div class="form-group"><label>Seuil</label><input type="number" name="seuil" required value="100"></div>
+                    <div class="form-group full-width"><label>Image</label><input type="file" name="image" accept="image/*" required></div>
+                    <div class="form-group"><label>Titre (1er pronostic)</label><input type="text" name="titre" required placeholder="Ex: bon"></div>
+                    <div class="form-group"><label>Valeur (1er pronostic)</label><input type="text" name="valeur" required placeholder="Ex: 12..."></div>
+                </div>
+                <button type="submit" class="submit-btn">Créer le document</button>
+                <div class="status-msg"></div>
+            </form>
+        </div>
+
+        <!-- Formulaire 2 : Ajouter un pronostic à un document existant -->
+        <div id="pmu-form-ajouter" class="pmu-form hidden">
+            <form id="form-pmu_ajouter" class="article-form">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>Sélectionner le document cible</label>
+                        <select name="docId" id="select-doc-pmu" required>
+                            <option value="">-- Choisir un document --</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Titre du pronostic</label><input type="text" name="titre" required placeholder="Ex: bon"></div>
+                    <div class="form-group"><label>Valeur du pronostic</label><input type="text" name="valeur" required placeholder="Ex: 12..."></div>
+                </div>
+                <button type="submit" class="submit-btn" style="background-color: var(--primary);">Ajouter le pronostic</button>
+                <div class="status-msg"></div>
+            </form>
+        </div>
+
+        <h3 style="margin-top:30px; color:#2c3e50;">📋 Liste des documents existants</h3>
+        <div class="articles-list" id="list-pmu_gratuit"></div>
+    </div>
+
+</div>
+
+<!-- Modale de modification -->
+<div id="editModal" class="modal hidden">
+    <div class="modal-content">
+        <h3>Modifier l'élément</h3>
+        <form id="editForm">
+            <div id="editFields"></div>
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" onclick="closeEditModal()">Annuler</button>
+                <button type="submit" class="btn-save">Enregistrer les modifications</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Module Firebase -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, doc, getDoc, setDoc, arrayUnion, collection, getDocs, addDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDd12gaxecFtwyLdpXLdnnNlTAHighpT4g",
+        authDomain: "pmu-pronos.firebaseapp.com",
+        projectId: "pmu-pronos",
+        storageBucket: "pmu-pronos.firebasestorage.app",
+        messagingSenderId: "31040271281",
+        appId: "1:31040271281:android:9cbe1e45eb9e67ae1d8390"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    const CONFIG = {
+        gratuit: { type: 'array_doc', collection: "PARIS_GRATUIT", document: "donnees", listId: "list-gratuit", countId: "count-gratuit" },
+        payant: { type: 'array_doc', collection: "PARIS_PAYANT", document: "donnees", listId: "list-payant", countId: "count-payant" },
+        programme: { type: 'programme_multi', collection: "programme_images", listId: "programme-container", countId: "count-programme" },
+        pmu_gratuit: { type: 'collection_doc', collection: "PMU_GRATUIT", listId: "list-pmu_gratuit", countId: "count-pmu_gratuit" }
+    };
+
+    // --- 1. GESTION DES ONGLETS ---
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.section-content').forEach(s => s.classList.add('hidden'));
+            e.target.classList.add('active');
+            document.getElementById(`section-${e.target.dataset.target}`).classList.remove('hidden');
+            
+            if(e.target.dataset.target === 'programme') loadProgrammeImages();
+            if(e.target.dataset.target === 'pmu_gratuit') loadPmuDocuments();
+        });
+    });
+
+    document.querySelectorAll('.pmu-tab-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.pmu-tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.pmu-form').forEach(f => f.classList.add('hidden'));
+            e.target.classList.add('active');
+            if(e.target.dataset.pmuTarget === 'nouveau') {
+                document.getElementById('pmu-form-nouveau').classList.remove('hidden');
+            } else {
+                document.getElementById('pmu-form-ajouter').classList.remove('hidden');
+                populateSelectDocuments();
+            }
+        });
+    });
+
+    // --- 2. FONCTION DE CHARGEMENT DES ARTICLES (Gratuit, Payant) ---
+    async function loadArticles(type) {
+        const cfg = CONFIG[type];
+        const listDiv = document.getElementById(cfg.listId);
+        const countSpan = document.getElementById(cfg.countId);
+        listDiv.innerHTML = '<p style="text-align:center; color:#888;">Chargement...</p>';
+
+        try {
+            let htmlContent = "";
+            let count = 0;
+
+            if (cfg.type === 'array_doc') {
+                const docRef = doc(db, cfg.collection, cfg.document);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    const articles = docSnap.data().articles || [];
+                    count = articles.length;
+                    articles.forEach((article, index) => {
+                        const imgTag = article.image ? `<img src="${article.image}" alt="Image">` : `<span class="no-image">Aucune image</span>`;
+                        let fieldsHtml = `<p><strong>Date :</strong> ${article.date || 'N/A'}</p>`;
+                        if (type === 'gratuit') {
+                            fieldsHtml += `<p><strong>Pronostic :</strong> ${article.pronostic || 'N/A'}</p><p><strong>Score :</strong> ${article.scoreexacte || 'N/A'}</p><p><strong>Publicités :</strong> ${article.nbpublicite || 0}</p>`;
+                        } else if (type === 'payant') {
+                            fieldsHtml += `<p><strong>Score Ex 1 :</strong> ${article.scoreexacte1 || 'N/A'}</p>`;
+                        }
+                        htmlContent += `
+                            <div class="article-card">
+                                <div>
+                                    <h3>Article n°${index}</h3>
+                                    ${fieldsHtml}
+                                    ${imgTag}
+                                </div>
+                                <div class="card-actions">
+                                    <button class="btn-edit" onclick="openEditModal('${type}', ${index})">✏️ Modifier</button>
+                                    <button class="btn-delete" onclick="deleteItem('${type}', ${index})">🗑️ Supprimer</button>
+                                </div>
+                            </div>`;
+                    });
+                }
+            }
+            countSpan.textContent = count;
+            listDiv.innerHTML = htmlContent || "<p style='color:#888;'>Aucun élément.</p>";
+        } catch (error) {
+            console.error(error);
+            listDiv.innerHTML = `<p style="color:red;">Erreur : ${error.message}</p>`;
+        }
+    }
+
+    // --- 3. PROGRAMME IMAGES ---
+    async function loadProgrammeImages() {
+        const container = document.getElementById('programme-container');
+        container.innerHTML = '<p style="text-align:center; color:#888;">Chargement...</p>';
+        const docNames = ['paris', 'pmu'];
+        let htmlContent = "";
+
+        try {
+            for (const name of docNames) {
+                const docRef = doc(db, "programme_images", name);
+                const docSnap = await getDoc(docRef);
+                let imgUrl = "";
+                if (docSnap.exists()) imgUrl = docSnap.data().imageUrl || "";
+                const imgTag = imgUrl ? `<img src="${imgUrl}" alt="${name}">` : `<div class="no-image" style="width:100%; height:180px; display:flex; align-items:center; justify-content:center;">Aucune image</div>`;
+                htmlContent += `
+                    <div class="programme-card">
+                        <h3>📁 ${name.toUpperCase()}</h3>
+                        ${imgTag}
+                        <input type="file" id="file-${name}" accept="image/*">
+                        <button class="btn-modifier" onclick="updateProgrammeImage('${name}')">Mettre à jour</button>
+                    </div>`;
+            }
+            container.innerHTML = htmlContent;
+        } catch (error) {
+            container.innerHTML = `<p style="color:red;">Erreur : ${error.message}</p>`;
+        }
+    }
+
+    window.updateProgrammeImage = async function(docName) {
+        const fileInput = document.getElementById(`file-${docName}`);
+        const file = fileInput.files[0];
+        if (!file) { alert("Veuillez sélectionner une image."); return; }
+        const btn = event.target;
+        btn.disabled = true;
+        btn.textContent = "Envoi...";
+        try {
+            const storageRef = ref(storage, `programme_images/${docName}_${Date.now()}_${file.name}`);
+            await uploadBytes(storageRef, file);
+            const downloadURL = await getDownloadURL(storageRef);
+            await setDoc(doc(db, "programme_images", docName), { imageUrl: downloadURL }, { merge: true });
+            await loadProgrammeImages();
+        } catch (error) {
+            alert("Erreur : " + error.message);
+            btn.disabled = false;
+            btn.textContent = "Mettre à jour";
+        }
+    };
+
+    // --- 4. PMU GRATUIT ---
+    async function loadPmuDocuments() {
+        const listDiv = document.getElementById('list-pmu_gratuit');
+        const countSpan = document.getElementById('count-pmu_gratuit');
+        listDiv.innerHTML = '<p style="text-align:center; color:#888;">Chargement...</p>';
+
+        try {
+            const querySnapshot = await getDocs(collection(db, CONFIG.pmu_gratuit.collection));
+            countSpan.textContent = querySnapshot.size;
+            let htmlContent = "";
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const imgTag = data.image ? `<img src="${data.image}" alt="Image">` : `<span class="no-image">Aucune image</span>`;
+                
+                let pronoHtml = "";
+                if (data.pronostics && Array.isArray(data.pronostics)) {
+                    pronoHtml = `<div class="prono-list"><strong>Pronostics (${data.pronostics.length}) :</strong>`;
+                    data.pronostics.forEach((p, idx) => {
+                        pronoHtml += `<div class="prono-item">
+                            <span><strong>${p.titre || 'Sans titre'}</strong> : ${p.valeur || ''}</span>
+                            <button class="btn-delete-prono" onclick="deleteProno('${doc.id}', ${idx})">✖</button>
+                        </div>`;
+                    });
+                    pronoHtml += `</div>`;
+                }
+
+                htmlContent += `
+                    <div class="article-card">
+                        <div>
+                            <h3>${data.nom || 'Sans nom'}</h3>
+                            <p><strong>Seuil :</strong> ${data.seuil || 0}</p>
+                            ${pronoHtml}
+                            ${imgTag}
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-edit" onclick="openEditModal('pmu_gratuit', '${doc.id}')">✏️ Modifier</button>
+                            <button class="btn-delete" onclick="deleteItem('pmu_gratuit', '${doc.id}')">🗑️ Supprimer</button>
+                        </div>
+                    </div>`;
+            });
+            listDiv.innerHTML = htmlContent || "<p style='color:#888;'>Aucun document.</p>";
+        } catch (error) {
+            console.error(error);
+            listDiv.innerHTML = `<p style="color:red;">Erreur : ${error.message}</p>`;
+        }
+    }
+
+    async function populateSelectDocuments() {
+        const select = document.getElementById('select-doc-pmu');
+        select.innerHTML = '<option value="">-- Choisir un document --</option>';
+        try {
+            const querySnapshot = await getDocs(collection(db, CONFIG.pmu_gratuit.collection));
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const option = document.createElement('option');
+                option.value = doc.id;
+                option.textContent = `${data.nom || 'Sans nom'} (Seuil: ${data.seuil || 0})`;
+                select.appendChild(option);
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // --- 5. SUPPRESSION ---
+    window.deleteItem = async function(type, identifier) {
+        if (!confirm("Voulez-vous vraiment supprimer cet élément ?")) return;
+
+        try {
+            if (type === 'gratuit' || type === 'payant') {
+                // Suppression d'un élément dans un tableau
+                const cfg = CONFIG[type];
+                const docRef = doc(db, cfg.collection, cfg.document);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    const articles = docSnap.data().articles || [];
+                    articles.splice(identifier, 1); // Supprime l'élément à l'index
+                    await setDoc(docRef, { articles: articles }, { merge: true });
+                    await loadArticles(type);
+                }
+            } 
+            else if (type === 'pmu_gratuit') {
+                // Suppression d'un document entier
+                await deleteDoc(doc(db, CONFIG.pmu_gratuit.collection, identifier));
+                await loadPmuDocuments();
+            }
+        } catch (error) {
+            alert("Erreur lors de la suppression : " + error.message);
+        }
+    };
+
+    window.deleteProno = async function(docId, pronoIndex) {
+        if (!confirm("Supprimer ce pronostic ?")) return;
+        try {
+            const docRef = doc(db, CONFIG.pmu_gratuit.collection, docId);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                let pronostics = data.pronostics || [];
+                pronostics.splice(pronoIndex, 1);
+                await updateDoc(docRef, { pronostics: pronostics });
+                await loadPmuDocuments();
+            }
+        } catch (error) {
+            alert("Erreur : " + error.message);
+        }
+    };
+
+    // --- 6. MODIFICATION (Modale) ---
+    window.openEditModal = async function(type, identifier) {
+        const modal = document.getElementById('editModal');
+        const fieldsContainer = document.getElementById('editFields');
+        const form = document.getElementById('editForm');
+        fieldsContainer.innerHTML = '';
+        modal.classList.remove('hidden');
+
+        let dataToEdit = {};
+        let docId = null;
+
+        // Récupérer les données à modifier
+        if (type === 'gratuit' || type === 'payant') {
+            const cfg = CONFIG[type];
+            const docSnap = await getDoc(doc(db, cfg.collection, cfg.document));
+            if (docSnap.exists()) {
+                dataToEdit = docSnap.data().articles[identifier];
+            }
+        } else if (type === 'pmu_gratuit') {
+            docId = identifier;
+            const docSnap = await getDoc(doc(db, CONFIG.pmu_gratuit.collection, docId));
+            if (docSnap.exists()) {
+                dataToEdit = docSnap.data();
+            }
+        }
+
+        // Construire le formulaire
+        let html = '';
+        for (const [key, value] of Object.entries(dataToEdit)) {
+            if (key === 'image') {
+                html += `<div class="form-group"><label>${key}</label><input type="text" name="${key}" value="${value || ''}"></div>`;
+            } else if (key === 'pronostics' || key === 'articles') {
+                // Ne pas modifier les tableaux complexes directement ici
+                continue;
+            } else {
+                html += `<div class="form-group"><label>${key}</label><input type="${typeof value === 'number' ? 'number' : 'text'}" name="${key}" value="${value || ''}"></div>`;
+            }
+        }
+        fieldsContainer.innerHTML = html;
+
+        // Gérer la soumission
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const updatedData = {};
+            formData.forEach((val, key) => {
+                updatedData[key] = val;
+            });
+
+            try {
+                if (type === 'gratuit' || type === 'payant') {
+                    const cfg = CONFIG[type];
+                    const docRef = doc(db, cfg.collection, cfg.document);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        let articles = docSnap.data().articles || [];
+                        articles[identifier] = { ...articles[identifier], ...updatedData };
+                        await setDoc(docRef, { articles: articles }, { merge: true });
+                        await loadArticles(type);
+                    }
+                } else if (type === 'pmu_gratuit') {
+                    await updateDoc(doc(db, CONFIG.pmu_gratuit.collection, docId), updatedData);
+                    await loadPmuDocuments();
+                }
+                closeEditModal();
+            } catch (error) {
+                alert("Erreur modification : " + error.message);
+            }
+        };
+    };
+
+    window.closeEditModal = function() {
+        document.getElementById('editModal').classList.add('hidden');
+    };
+
+    // --- 7. SOUMISSIONS DES FORMULAIRES ---
+
+    // PMU Nouveau
+    document.getElementById('form-pmu_nouveau').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const statusMsg = form.querySelector('.status-msg');
+        submitBtn.disabled = true;
+        statusMsg.className = 'status-msg loading';
+        statusMsg.textContent = "Création...";
+        try {
+            const formData = new FormData(form);
+            const imageFile = formData.get('image');
+            if (!imageFile || imageFile.size === 0) throw new Error("Image requise.");
+
+            const storageRef = ref(storage, `pmu_gratuit/${Date.now()}_${imageFile.name}`);
+            await uploadBytes(storageRef, imageFile);
+            const downloadURL = await getDownloadURL(storageRef);
+
+            // Utilisation de addDoc pour créer un nouveau document dans la collection
+            const newDoc = {
+                nom: formData.get('nom').trim(),
+                seuil: Number(formData.get('seuil')),
+                image: downloadURL,
+                pronostics: [{
+                    titre: formData.get('titre').trim(),
+                    valeur: formData.get('valeur').trim(),
+                    createdAt: new Date().toISOString()
+                }]
+            };
+            
+            await addDoc(collection(db, CONFIG.pmu_gratuit.collection), newDoc);
+
+            statusMsg.className = 'status-msg success';
+            statusMsg.textContent = "✅ Document créé !";
+            form.reset();
+            await loadPmuDocuments();
+        } catch (error) {
+            statusMsg.className = 'status-msg error';
+            statusMsg.textContent = "❌ Erreur : " + error.message;
+        } finally {
+            submitBtn.disabled = false;
+        }
+    });
+
+    // PMU Ajouter Prono
+    document.getElementById('form-pmu_ajouter').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const statusMsg = form.querySelector('.status-msg');
+        submitBtn.disabled = true;
+        statusMsg.className = 'status-msg loading';
+        statusMsg.textContent = "Ajout...";
+        try {
+            const formData = new FormData(form);
+            const docId = formData.get('docId');
+            if (!docId) throw new Error("Sélectionnez un document.");
+            
+            const newProno = {
+                titre: formData.get('titre').trim(),
+                valeur: formData.get('valeur').trim(),
+                createdAt: new Date().toISOString()
+            };
+            await updateDoc(doc(db, CONFIG.pmu_gratuit.collection, docId), {
+                pronostics: arrayUnion(newProno)
+            });
+            statusMsg.className = 'status-msg success';
+            statusMsg.textContent = "✅ Pronostic ajouté !";
+            form.reset();
+            await loadPmuDocuments();
+        } catch (error) {
+            statusMsg.className = 'status-msg error';
+            statusMsg.textContent = "❌ Erreur : " + error.message;
+        } finally {
+            submitBtn.disabled = false;
+        }
+    });
+
+    // Gratuit
+    document.getElementById('form-gratuit').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const statusMsg = form.querySelector('.status-msg');
+        submitBtn.disabled = true;
+        statusMsg.className = 'status-msg loading';
+        statusMsg.textContent = "Traitement...";
+        try {
+            const formData = new FormData(form);
+            const imageFile = formData.get('image');
+            if (!imageFile || imageFile.size === 0) throw new Error("Image requise.");
+            const storageRef = ref(storage, `gratuit/${Date.now()}_${imageFile.name}`);
+            await uploadBytes(storageRef, imageFile);
+            const downloadURL = await getDownloadURL(storageRef);
+            const newArticle = { image: downloadURL };
+            formData.forEach((value, key) => {
+                if (key !== 'image') {
+                    if (key === 'nbpublicite') newArticle[key] = Number(value);
+                    else newArticle[key] = value.trim();
+                }
+            });
+            await setDoc(doc(db, CONFIG.gratuit.collection, CONFIG.gratuit.document), { articles: arrayUnion(newArticle) }, { merge: true });
+            statusMsg.className = 'status-msg success';
+            statusMsg.textContent = "✅ Article ajouté !";
+            form.reset();
+            await loadArticles('gratuit');
+        } catch (error) {
+            statusMsg.className = 'status-msg error';
+            statusMsg.textContent = "❌ Erreur : " + error.message;
+        } finally {
+            submitBtn.disabled = false;
+        }
+    });
+
+    // Payant
+    document.getElementById('form-payant').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const statusMsg = form.querySelector('.status-msg');
+        submitBtn.disabled = true;
+        statusMsg.className = 'status-msg loading';
+        statusMsg.textContent = "Traitement...";
+        try {
+            const formData = new FormData(form);
+            const imageFile = formData.get('image');
+            if (!imageFile || imageFile.size === 0) throw new Error("Image requise.");
+            const storageRef = ref(storage, `payant/${Date.now()}_${imageFile.name}`);
+            await uploadBytes(storageRef, imageFile);
+            const downloadURL = await getDownloadURL(storageRef);
+            const newArticle = { image: downloadURL };
+            formData.forEach((value, key) => {
+                if (key !== 'image') newArticle[key] = value.trim();
+            });
+            await setDoc(doc(db, CONFIG.payant.collection, CONFIG.payant.document), { articles: arrayUnion(newArticle) }, { merge: true });
+            statusMsg.className = 'status-msg success';
+            statusMsg.textContent = "✅ Article ajouté !";
+            form.reset();
+            await loadArticles('payant');
+        } catch (error) {
+            statusMsg.className = 'status-msg error';
+            statusMsg.textContent = "❌ Erreur : " + error.message;
+        } finally {
+            submitBtn.disabled = false;
+        }
+    });
+
+    // --- 8. INITIALISATION ---
+    loadArticles('gratuit');
+    loadArticles('payant');
+    loadProgrammeImages();
+    loadPmuDocuments();
+
+</script>
+
+</body>
+</html>
