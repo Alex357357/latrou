@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Générateur de Carte Nationale d'Identité Burkinabè</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(145deg, #1e3c2c 0%, #2a5a3a 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      padding: 20px;
+    }
+
+    .main-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(6px);
+      padding: 30px;
+      border-radius: 40px;
+      box-shadow: 0 25px 40px rgba(0, 0, 0, 0.5);
+      max-width: 1400px;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* ---------- FORMULAIRE ---------- */
+    .form-panel {
+      flex: 1 1 380px;
+      background: #f9f7f0;
+      border-radius: 28px;
+      padding: 28px 25px;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05), 0 10px 20px rgba(0, 0, 0, 0.3);
+      border: 1px solid #e0dbc8;
+    }
+
+    .form-panel h2 {
+      color: #1d4b2c;
+      font-weight: 600;
+      font-size: 1.6rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-bottom: 3px solid #b89b4b;
+      padding-bottom: 12px;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-panel h2 span {
+      font-size: 1.8rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .form-group.full-width {
+      grid-column: span 2;
+    }
+
+    .form-group label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #3b5e3b;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input,
+    .form-group select {
+      padding: 10px 12px;
+      border: 1.5px solid #c7bc9b;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      background: #ffffffd9;
+      transition: all 0.2s;
+      font-family: inherit;
+      color: #1e2e1e;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #2f6b3c;
+      box-shadow: 0 0 0 4px rgba(47, 107, 60, 0.15);
+      outline: none;
+    }
+
+    .photo-upload {
+      grid-column: span 2;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: #eae5d6;
+      padding: 12px 15px;
+      border-radius: 18px;
+      border: 1px dashed #9b8d62;
+    }
+
+    .photo-upload label {
+      font-weight: 600;
+      color: #2c4a2c;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .photo-upload input {
+      flex: 1;
+      padding: 8px 10px;
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #c7bc9b;
+      font-size: 0.9rem;
+    }
+
+    /* ---------- CARTE ---------- */
+    .card-panel {
+      flex: 1 1 580px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .id-card {
+      width: 100%;
+      max-width: 700px;
+      background: #f8f6ee;
+      border-radius: 24px;
+      box-shadow: 0 25px 35px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px #b7aa7e inset;
+      padding: 22px 26px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #c0b28b;
+      font-family: 'Courier New', 'Segoe UI', monospace;
+      transition: all 0.2s;
+    }
+
+    /* motifs de sécurité */
+    .id-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        repeating-linear-gradient(45deg, rgba(80, 120, 80, 0.08) 0px, rgba(80, 120, 80, 0.08) 8px, transparent 8px, transparent 16px),
+        repeating-linear-gradient(135deg, rgba(120, 140, 120, 0.06) 0px, rgba(120, 140, 120, 0.06) 12px, transparent 12px, transparent 24px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .id-card > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* En-tête avec armoiries */
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .emblem-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .coat-of-arms {
+      width: 60px;
+      height: 60px;
+      background: #d9d0b0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      border: 3px solid #2e5a2e;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      color: #1e4a1e;
+    }
+
+    .devise {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #1f4f1f;
+      letter-spacing: 0.8px;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+
+    .devise strong {
+      display: block;
+      font-size: 0.9rem;
+      color: #0f3f0f;
+      margin-bottom: 2px;
+    }
+
+    .vertical-mention {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: #1a3d1a;
+      text-transform: uppercase;
+      border-left: 2px solid #5a7a4a;
+      padding-left: 8px;
+      white-space: nowrap;
+      max-height: 90px;
+      overflow: hidden;
+    }
+
+    /* Corps de la carte */
+    .card-body {
+      display: flex;
+      gap: 18px;
+      margin-top: 8px;
+    }
+
+    .photo-section {
+      flex: 0 0 110px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .photo-frame {
+      width: 110px;
+      height: 140px;
+      background: #e0d8c0;
+      border: 3px solid #3f5e3f;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-placeholder {
+      font-size: 3rem;
+      color: #6b7a5a;
+    }
+
+    .signature-space {
+      width: 100%;
+      border-top: 2px dashed #5e735e;
+      padding-top: 6px;
+      font-size: 0.6rem;
+      text-align: center;
+      color: #2f4a2f;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .signature-authority {
+      margin-top: 10px;
+      font-size: 0.6rem;
+      border-top: 1px solid #8a9a7a;
+      padding-top: 6px;
+      text-align: center;
+      color: #2a4a2a;
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .data-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .data-row {
+      display: flex;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      border-bottom: 1px dotted #b7aa8a;
+      padding-bottom: 3px;
+    }
+
+    .data-label {
+      width: 110px;
+      font-weight: 800;
+      color: #2d4e2d;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 0.4px;
+    }
+
+    .data-value {
+      flex: 1;
+      font-weight: 700;
+      color: #111;
+      word-break: break-word;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .data-value.highlight {
+      color: #0f3f0f;
+      background: #e6ecd6;
+      padding: 0 6px;
+      border-radius: 6px;
+      display: inline-block;
+      font-size: 0.95rem;
+    }
+
+    .id-number {
+      background: #1e3f1e;
+      color: #f0f0d0;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      text-align: center;
+      margin-top: 8px;
+      border: 1px solid #b89b4b;
+      display: inline-block;
+      align-self: flex-start;
+    }
+
+    .date-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      background: #e9e3d0;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #2a4a2a;
+    }
+
+    /* pied de carte */
+    .card-footer {
+      margin-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.6rem;
+      color: #2e4a2e;
+      border-top: 2px solid #b7aa7e;
+      padding-top: 10px;
+    }
+
+    .seal {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: #1d4b1d;
+      border: 1px solid #3f6e3f;
+      border-radius: 40px;
+      padding: 4px 12px;
+      background: #e4e9d4;
+      letter-spacing: 1px;
+    }
+
+    /* responsive */
+    @media (max-width: 800px) {
+      .main-container {
+        flex-direction: column;
+        padding: 18px;
+      }
+      .id-card {
+        padding: 16px;
+      }
+      .data-label {
+        width: 85px;
+        font-size: 0.65rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <!-- Panneau formulaire -->
+    <div class="form-panel">
+      <h2><span>📋</span> Informations</h2>
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label>Nom du document</label>
+          <input type="text" id="docName" value="CARTE NATIONALE D'IDENTITÉ BURKINABÈ" readonly disabled style="background:#e8e4d4; color:#2a4a2a; font-weight:600;">
+        </div>
+        <div class="form-group">
+          <label>Nom</label>
+          <input type="text" id="nom" value="CONGO" placeholder="ex: CONGO">
+        </div>
+        <div class="form-group">
+          <label>Prénoms</label>
+          <input type="text" id="prenoms" value="IBRAHIM" placeholder="ex: IBRAHIM">
+        </div>
+        <div class="form-group">
+          <label>Né(e) le</label>
+          <input type="text" id="dateNaissance" value="03/03/2003" placeholder="JJ/MM/AAAA">
+        </div>
+        <div class="form-group">
+          <label>Lieu de naissance</label>
+          <input type="text" id="lieuNaissance" value="BOUGNOUNOU" placeholder="ex: BOUGNOUNOU">
+        </div>
+        <div class="form-group">
+          <label>Sexe</label>
+          <select id="sexe">
+            <option value="M" selected>M</option>
+            <option value="F">F</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Taille (cm)</label>
+          <input type="text" id="taille" value="170" placeholder="ex: 170">
+        </div>
+        <div class="form-group">
+          <label>Numéro d'identifiant</label>
+          <input type="text" id="numIdentifiant" value="11010300102000754">
+        </div>
+        <div class="form-group">
+          <label>Numéro de carte</label>
+          <input type="text" id="numCarte" value="B19694930">
+        </div>
+        <div class="form-group">
+          <label>Délivrée le</label>
+          <input type="text" id="delivreeLe" value="08/03/2024">
+        </div>
+        <div class="form-group">
+          <label>Expire le</label>
+          <input type="text" id="expireLe" value="07/03/2034">
+        </div>
+        <div class="photo-upload">
+          <label>📸 Photo (URL ou fichier)</label>
+          <input type="file" id="photoFile" accept="image/*">
+        </div>
+        <div class="form-group full-width">
+          <label>URL de la photo (optionnel)</label>
+          <input type="text" id="photoUrl" placeholder="https://exemple.com/photo.jpg" value="">
+        </div>
+      </div>
+      <p style="font-size:0.7rem; margin-top:16px; color:#4e5e3e; text-align:center;">Modifiez les champs pour mettre à jour la carte en direct.</p>
+    </div>
+
+    <!-- Panneau carte -->
+    <div class="card-panel">
+      <div class="id-card" id="idCard">
+        <!-- En-tête -->
+        <div class="card-header">
+          <div class="emblem-area">
+            <div class="coat-of-arms">⚜️</div>
+            <div class="devise">
+              <strong>BURKINA FASO</strong>
+              Unité - Progrès - Justice
+            </div>
+          </div>
+          <div class="vertical-mention">CARTE NATIONALE D'IDENTITÉ BURKINABÈ</div>
+        </div>
+
+        <!-- Corps -->
+        <div class="card-body">
+          <!-- Photo & signatures -->
+          <div class="photo-section">
+            <div class="photo-frame" id="photoFrame">
+              <div class="photo-placeholder" id="photoPlaceholder">👤</div>
+            </div>
+            <div class="signature-space">Signature du titulaire</div>
+            <div class="signature-authority">Sceau / signature autorité</div>
+          </div>
+
+          <!-- Données -->
+          <div class="data-section">
+            <div class="data-row">
+              <span class="data-label">Nom</span>
+              <span class="data-value" id="cardNom">CONGO</span>
+            </div>
+            <div class="data-row">
+              <span class="data-label">Prénoms</span>
+              <span class="data-value" id="cardPrenoms">IBRAHIM</span>
+            </div>
+            <div class="data-row">
+              <span class="data-label">Né(e) le</span>
+              <span class="data-value" id="cardNaissance">03/03/2003 à BOUGNOUNOU</span>
+            </div>
+            <div class="data-row">
+              <span class="data-label">Sexe</span>
+              <span class="data-value" id="cardSexe">M</span>
+            </div>
+            <div class="data-row">
+              <span class="data-label">Taille</span>
+              <span class="data-value" id="cardTaille">170 cm</span>
+            </div>
+            <div class="data-row">
+              <span class="data-label">N° identifiant</span>
+              <span class="data-value" id="cardIdentifiant">11010300102000754</span>
+            </div>
+            <div class="data-row">
+              <span class="data-label">N° carte</span>
+              <span class="data-value" id="cardNumCarte">B19694930</span>
+            </div>
+            <div class="date-row">
+              <span>Délivrée le: <span id="cardDelivree">08/03/2024</span></span>
+              <span>Expire le: <span id="cardExpire">07/03/2034</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pied -->
+        <div class="card-footer">
+          <span>BURKINA FASO · CNIB</span>
+          <span class="seal">AUTORITÉ ÉMETTRICE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // Éléments du formulaire
+      const nomInput = document.getElementById('nom');
+      const prenomsInput = document.getElementById('prenoms');
+      const dateNaissanceInput = document.getElementById('dateNaissance');
+      const lieuNaissanceInput = document.getElementById('lieuNaissance');
+      const sexeSelect = document.getElementById('sexe');
+      const tailleInput = document.getElementById('taille');
+      const numIdentifiantInput = document.getElementById('numIdentifiant');
+      const numCarteInput = document.getElementById('numCarte');
+      const delivreeLeInput = document.getElementById('delivreeLe');
+      const expireLeInput = document.getElementById('expireLe');
+      const photoFileInput = document.getElementById('photoFile');
+      const photoUrlInput = document.getElementById('photoUrl');
+
+      // Éléments de la carte
+      const cardNom = document.getElementById('cardNom');
+      const cardPrenoms = document.getElementById('cardPrenoms');
+      const cardNaissance = document.getElementById('cardNaissance');
+      const cardSexe = document.getElementById('cardSexe');
+      const cardTaille = document.getElementById('cardTaille');
+      const cardIdentifiant = document.getElementById('cardIdentifiant');
+      const cardNumCarte = document.getElementById('cardNumCarte');
+      const cardDelivree = document.getElementById('cardDelivree');
+      const cardExpire = document.getElementById('cardExpire');
+      const photoFrame = document.getElementById('photoFrame');
+      const photoPlaceholder = document.getElementById('photoPlaceholder');
+
+      // Mettre à jour les champs de la carte
+      function updateCard() {
+        // Nom
+        cardNom.textContent = nomInput.value.trim() ? nomInput.value.toUpperCase() : '—';
+        // Prénoms
+        cardPrenoms.textContent = prenomsInput.value.trim() ? prenomsInput.value.toUpperCase() : '—';
+        // Naissance (date + lieu)
+        const dateN = dateNaissanceInput.value.trim() || '—';
+        const lieuN = lieuNaissanceInput.value.trim() ? lieuNaissanceInput.value.toUpperCase() : '';
+        cardNaissance.textContent = lieuN ? `${dateN} à ${lieuN}` : dateN;
+        // Sexe
+        cardSexe.textContent = sexeSelect.value;
+        // Taille
+        const tailleVal = tailleInput.value.trim();
+        cardTaille.textContent = tailleVal ? `${tailleVal} cm` : '— cm';
+        // Identifiant
+        cardIdentifiant.textContent = numIdentifiantInput.value.trim() || '—';
+        // Numéro carte
+        cardNumCarte.textContent = numCarteInput.value.trim() || '—';
+        // Dates
+        cardDelivree.textContent = delivreeLeInput.value.trim() || '—';
+        cardExpire.textContent = expireLeInput.value.trim() || '—';
+      }
+
+      // Gestion de la photo
+      function updatePhoto() {
+        // Vider la frame
+        photoFrame.innerHTML = '';
+        
+        // Priorité : fichier uploadé > URL
+        const file = photoFileInput.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.alt = 'Photo du titulaire';
+            photoFrame.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+          return;
+        }
+
+        const url = photoUrlInput.value.trim();
+        if (url) {
+          const img = document.createElement('img');
+          img.src = url;
+          img.alt = 'Photo du titulaire';
+          img.onerror = function() {
+            // En cas d'erreur, afficher le placeholder
+            photoFrame.innerHTML = '<div class="photo-placeholder">👤</div>';
+          };
+          photoFrame.appendChild(img);
+        } else {
+          // Placeholder par défaut
+          photoFrame.innerHTML = '<div class="photo-placeholder">👤</div>';
+        }
+      }
+
+      // Écouter les changements sur tous les inputs texte
+      const textInputs = [
+        nomInput, prenomsInput, dateNaissanceInput, lieuNaissanceInput,
+        tailleInput, numIdentifiantInput, numCarteInput, delivreeLeInput, expireLeInput
+      ];
+      
+      textInputs.forEach(input => {
+        input.addEventListener('input', updateCard);
+      });
+
+      sexeSelect.addEventListener('change', updateCard);
+
+      // Photo
+      photoFileInput.addEventListener('change', function() {
+        // Si un fichier est sélectionné, on peut vider l'URL pour éviter les conflits ?
+        // Mais on laisse l'utilisateur gérer. On met à jour la photo.
+        updatePhoto();
+      });
+
+      photoUrlInput.addEventListener('input', function() {
+        // Si l'URL est modifiée, on vide le champ fichier ? Pas nécessaire, mais on peut
+        // Pour éviter les confusions, on peut effacer le fichier si l'URL est utilisée.
+        if (photoUrlInput.value.trim() !== '') {
+          // On ne vide pas le file input, mais la fonction updatePhoto donne priorité au fichier.
+          // Pour que l'URL soit visible, il faudrait effacer le fichier. Mais on laisse l'utilisateur choisir.
+          // Solution : on ne fait rien, mais si l'utilisateur veut utiliser l'URL, il peut effacer le fichier manuellement.
+          // Cependant, pour une meilleure expérience, on peut décider que le fichier a priorité.
+          // Si l'utilisateur tape une URL, on peut réinitialiser le fichier.
+          if (photoFileInput.files.length > 0) {
+            // On ne vide pas automatiquement, mais on prévient ? On laisse.
+          }
+        }
+        updatePhoto();
+      });
+
+      // Initialisation
+      updateCard();
+      updatePhoto();
+
+      // Petite astuce : si l'utilisateur efface le fichier, on met à jour.
+      photoFileInput.addEventListener('change', updatePhoto);
+      
+      // Si l'utilisateur clique sur le champ fichier et annule, on met à jour aussi.
+      // Déjà géré par change.
+
+      // Mettre à jour quand on vide le champ URL
+      // Déjà géré par input.
+
+      // Amélioration : bouton pour effacer le fichier
+      // Pas nécessaire, on garde simple.
+      
+      // Synchronisation en cas de réinitialisation du formulaire (peu probable)
+      window.addEventListener('load', function() {
+        updateCard();
+        updatePhoto();
+      });
+    })();
+  </script>
+</body>
+</html>
