@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politique de Confidentialité - PRONO MASTER</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0b1a2e 0%, #1a2f3f 100%);
+            min-height: 100vh;
+            color: #e0e9f0;
+            line-height: 1.7;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 2rem;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+        }
+
+        .app-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .app-logo i {
+            font-size: 2.5rem;
+            color: #FFD966;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4));
+        }
+
+        .app-name {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #FFD966);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .subtitle {
+            color: #a0b8cc;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .last-update {
+            display: inline-block;
+            margin-top: 1rem;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            color: #FFD966;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #FFD966;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        h2 i {
+            font-size: 1.2rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            color: #cbdae6;
+            margin-bottom: 1rem;
+            font-size: 0.98rem;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.2rem;
+            color: #cbdae6;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            font-size: 0.98rem;
+        }
+
+        li strong {
+            color: #FFD966;
+            font-weight: 600;
+        }
+
+        a {
+            color: #FFD966;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .highlight-box {
+            background: rgba(0, 200, 100, 0.08);
+            border-left: 4px solid #00c864;
+            padding: 1rem 1.25rem;
+            border-radius: 1rem;
+            margin: 1.5rem 0;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .highlight-box i {
+            color: #00c864;
+            font-size: 1.5rem;
+            margin-top: 0.1rem;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: #b3ffcc;
+            font-size: 0.95rem;
+        }
+
+        .info-box {
+            background: rgba(100, 150, 255, 0.08);
+            border-left: 4px solid #6496ff;
+            padding: 1rem 1.25rem;
+            border-radius: 1rem;
+            margin: 1.5rem 0;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .info-box i {
+            color: #6496ff;
+            font-size: 1.5rem;
+            margin-top: 0.1rem;
+        }
+
+        .info-box p {
+            margin: 0;
+            color: #b3ccff;
+            font-size: 0.95rem;
+        }
+
+        /* Boîte d'alerte pour la gratuité */
+        .free-box {
+            background: rgba(0, 200, 100, 0.08);
+            border-left: 4px solid #00c864;
+            padding: 1.25rem 1.5rem;
+            border-radius: 1rem;
+            margin: 1.5rem 0;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .free-box i {
+            color: #00c864;
+            font-size: 1.8rem;
+            margin-top: 0.1rem;
+        }
+
+        .free-box div {
+            flex: 1;
+        }
+
+        .free-box p {
+            margin: 0 0 0.5rem 0;
+            color: #b3ffcc;
+            font-size: 0.95rem;
+        }
+
+        .free-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .free-box strong {
+            color: #00ff88;
+        }
+
+        /* Boîte d'information pour la suppression */
+        .delete-box {
+            background: rgba(100, 150, 255, 0.08);
+            border-left: 4px solid #6496ff;
+            padding: 1.25rem 1.5rem;
+            border-radius: 1rem;
+            margin: 1.5rem 0;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .delete-box i {
+            color: #6496ff;
+            font-size: 1.8rem;
+            margin-top: 0.1rem;
+        }
+
+        .delete-box div {
+            flex: 1;
+        }
+
+        .delete-box p {
+            margin: 0 0 0.5rem 0;
+            color: #b3ccff;
+            font-size: 0.95rem;
+        }
+
+        .delete-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .delete-box strong {
+            color: #80b3ff;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(10, 20, 30, 0.4);
+            border-radius: 1rem;
+            overflow: hidden;
+            font-size: 0.92rem;
+        }
+
+        .data-table thead {
+            background: rgba(255, 215, 0, 0.12);
+        }
+
+        .data-table th {
+            padding: 1rem;
+            text-align: left;
+            color: #FFD966;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table td {
+            padding: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #cbdae6;
+            vertical-align: top;
+        }
+
+        .data-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .badge-free {
+            background: rgba(0, 200, 100, 0.15);
+            color: #00ff88;
+            border: 1px solid rgba(0, 200, 100, 0.3);
+        }
+
+        .badge-payment {
+            background: rgba(255, 150, 50, 0.15);
+            color: #ffaa66;
+            border: 1px solid rgba(255, 150, 50, 0.3);
+        }
+
+        .badge-optional {
+            background: rgba(100, 200, 255, 0.15);
+            color: #80ccff;
+            border: 1px solid rgba(100, 200, 255, 0.3);
+        }
+
+        .footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+            color: #6f8fa3;
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: #FFD966;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: #FFD966;
+            padding: 0.7rem 1.5rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 2rem;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 215, 0, 0.2);
+            transform: translateY(-2px);
+            text-decoration: none;
+            color: #fff;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 2rem 1.25rem;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            .app-name {
+                font-size: 1.5rem;
+            }
+            .data-table {
+                font-size: 0.82rem;
+            }
+            .data-table th, .data-table td {
+                padding: 0.7rem 0.6rem;
+            }
+            .delete-box, .free-box {
+                flex-direction: column;
+            }
+            .badge {
+                font-size: 0.68rem;
+                padding: 0.15rem 0.45rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="app-logo">
+            <i class="fas fa-futbol"></i>
+            <span class="app-name">PRONO MASTER</span>
+        </div>
+        <div class="subtitle">Pmu & Sport</div>
+        <h1>Politique de Confidentialité</h1>
+        <div class="last-update">
+            <i class="fas fa-calendar-alt"></i> Dernière mise à jour : 11 septembre 2026
+        </div>
+    </div>
+
+    <!-- Introduction -->
+    <p>
+        Chez <strong>PRONO MASTER : Pmu & Sport</strong> (ci-après « l'Application », « nous », « notre »), 
+        la protection de votre vie privée est une priorité absolue. La présente Politique de Confidentialité 
+        décrit quelles données nous collectons, pourquoi nous les collectons, comment nous les protégeons, 
+        et quels sont vos droits.
+    </p>
+
+    <div class="highlight-box">
+        <i class="fas fa-shield-alt"></i>
+        <p>
+            <strong>Engagement clé :</strong> Aucune donnée personnelle n'est partagée, vendue ou transmise à des tiers. 
+            Toutes les informations sensibles sont chiffrées de bout en bout avant leur envoi.
+        </p>
+    </div>
+
+    <!-- Boîte gratuité -->
+    <div class="free-box">
+        <i class="fas fa-gift"></i>
+        <div>
+            <p>
+                <strong>Utilisation gratuite et anonyme :</strong> Vous pouvez utiliser l'Application 
+                <strong>sans fournir aucune donnée personnelle</strong>. L'adresse e-mail et le mot de passe 
+                ne sont <strong>jamais obligatoires</strong> pour l'utilisation gratuite.
+            </p>
+            <p>
+                Seule la souscription à un <strong>abonnement payant</strong> nécessite la création d'un compte 
+                (adresse e-mail + mot de passe) pour gérer votre abonnement et vos paiements.
+            </p>
+        </div>
+    </div>
+
+    <!-- Boîte d'information sur la suppression -->
+    <div class="delete-box">
+        <i class="fas fa-info-circle"></i>
+        <div>
+            <p>
+                <strong>Vous gardez le contrôle total :</strong> vous pouvez supprimer vos données personnelles 
+                <strong>à tout moment</strong>, sans avoir à fournir de justification, et ce gratuitement.
+            </p>
+            <p>
+                La suppression s'effectue directement depuis les <strong>paramètres de votre compte Google Play</strong> 
+                ou depuis les paramètres de votre appareil. Consultez la section 6 ci-dessous pour plus de détails.
+            </p>
+        </div>
+    </div>
+
+    <!-- 1. Responsable du traitement -->
+    <h2><i class="fas fa-building"></i> 1. Responsable du traitement</h2>
+    <p>
+        Le responsable du traitement des données est l'éditeur de l'application <strong>PRONO MASTER : Pmu & Sport</strong>.
+        Pour toute question relative à vos données personnelles, vous pouvez nous contacter à l'adresse suivante :
+        <a href="mailto:privacy@pronomaster.com">privacy@pronomaster.com</a>.
+    </p>
+
+    <!-- 2. Données collectées -->
+    <h2><i class="fas fa-database"></i> 2. Données collectées</h2>
+    <p>
+        Nous collectons uniquement les données strictement nécessaires au fonctionnement de l'Application. 
+        Le tableau ci-dessous récapitule les catégories de données traitées, ainsi que les conditions 
+        dans lesquelles elles sont demandées :
+    </p>
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Type de donnée</th>
+                <th>Finalité</th>
+                <th>Caractère obligatoire</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Adresse e-mail</strong></td>
+                <td>Création de compte, connexion, gestion de l'abonnement, communication liée au compte</td>
+                <td><span class="badge badge-free">Jamais obligatoire</span><br>
+                    <small style="color:#8ba7bd; font-size:0.78rem;">Uniquement si abonnement payant</small></td>
+            </tr>
+            <tr>
+                <td><strong>Mot de passe</strong></td>
+                <td>Sécurisation de l'accès au compte</td>
+                <td><span class="badge badge-free">Jamais obligatoire</span><br>
+                    <small style="color:#8ba7bd; font-size:0.78rem;">Uniquement si abonnement payant</small></td>
+            </tr>
+            <tr>
+                <td><strong>Numéro de téléphone</strong></td>
+                <td>Validation des paiements et confirmation des transactions</td>
+                <td><span class="badge badge-payment">Paiements uniquement</span></td>
+            </tr>
+            <tr>
+                <td><strong>Position approximative</strong> (pays/région)</td>
+                <td>Proposer les opérateurs de paiement disponibles dans votre pays</td>
+                <td><span class="badge badge-optional">Optionnel / Fonctionnel</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="free-box">
+        <i class="fas fa-unlock-alt"></i>
+        <div>
+            <p>
+                <strong>À retenir :</strong> L'adresse e-mail et le mot de passe <strong>ne sont jamais obligatoires</strong>, 
+                sauf si vous décidez de souscrire à un <strong>abonnement payant</strong>. 
+                L'utilisation gratuite de l'Application se fait <strong>sans aucune donnée personnelle</strong>.
+            </p>
+        </div>
+    </div>
+
+    <!-- 3. Finalités du traitement -->
+    <h2><i class="fas fa-bullseye"></i> 3. Pourquoi collectons-nous ces données ?</h2>
+
+    <h3>3.1 Adresse e-mail et mot de passe (uniquement pour les abonnements)</h3>
+    <p>
+        L'adresse e-mail et le mot de passe ne sont demandés <strong>que dans un seul cas</strong> : 
+        lorsque vous souhaitez <strong>souscrire à un abonnement payant</strong> (pronostics premium, 
+        analyses sportives avancées, etc.). Dans ce cas, ils servent à :
+    </p>
+    <ul>
+        <li>Créer et gérer votre compte abonné ;</li>
+        <li>Vous permettre de vous connecter de manière sécurisée pour accéder à vos contenus payants ;</li>
+        <li>Gérer le renouvellement et l'historique de votre abonnement ;</li>
+        <li>Vous envoyer des notifications importantes relatives à votre abonnement (facturation, expiration, sécurité).</li>
+    </ul>
+    <div class="info-box">
+        <i class="fas fa-info-circle"></i>
+        <p>
+            <strong>Important :</strong> Si vous ne souscrivez à aucun abonnement payant, 
+            <strong>aucune adresse e-mail ni aucun mot de passe ne vous sera demandé</strong>. 
+            Vous pouvez utiliser toutes les fonctionnalités gratuites de l'Application de manière anonyme.
+        </p>
+    </div>
+
+    <h3>3.2 Numéro de téléphone</h3>
+    <p>
+        Le numéro de téléphone est utilisé <strong>exclusivement dans le cadre des transactions payantes</strong> 
+        (achat d'abonnement ou de contenu premium). Il sert à :
+    </p>
+    <ul>
+        <li>Valider et authentifier les paiements effectués via votre opérateur mobile ;</li>
+        <li>Recevoir une confirmation de transaction (SMS ou notification) ;</li>
+        <li>Prévenir la fraude et sécuriser les paiements.</li>
+    </ul>
+    <p>
+        Ce numéro n'est <strong>jamais utilisé à des fins de marketing</strong> ni partagé avec qui que ce soit.
+    </p>
+
+    <h3>3.3 Position approximative</h3>
+    <p>
+        La position approximative (généralement au niveau du pays ou de la région, et non une localisation GPS précise) 
+        est utilisée uniquement pour :
+    </p>
+    <ul>
+        <li>Détecter automatiquement votre pays de résidence ;</li>
+        <li>Vous proposer les <strong>opérateurs de paiement mobile disponibles</strong> dans votre région (Orange Money, MTN, Moov, Wave, etc.) ;</li>
+        <li>Adapter l'expérience utilisateur aux spécificités locales.</li>
+    </ul>
+    <p>
+        Cette donnée est traitée de manière anonyme et n'est pas conservée après utilisation.
+    </p>
+
+    <!-- 4. Chiffrement -->
+    <h2><i class="fas fa-lock"></i> 4. Sécurité et chiffrement des données</h2>
+    <div class="highlight-box">
+        <i class="fas fa-key"></i>
+        <p>
+            <strong>Chiffrement de bout en bout :</strong> Toutes vos données sensibles (adresse e-mail, mot de passe, 
+            numéro de téléphone) sont chiffrées de bout en bout avant leur envoi vers nos serveurs. Cela signifie 
+            que les informations sont illisibles pour toute personne qui tenterait de les intercepter.
+        </p>
+    </div>
+    <p>
+        Nous mettons en œuvre les mesures techniques et organisationnelles suivantes pour garantir la sécurité de vos données :
+    </p>
+    <ul>
+        <li><strong>Chiffrement SSL/TLS</strong> pour toutes les communications réseau ;</li>
+        <li><strong>Hachage des mots de passe</strong> avec des algorithmes robustes (bcrypt, Argon2) avant stockage ;</li>
+        <li><strong>Chiffrement au repos</strong> des bases de données contenant des informations personnelles ;</li>
+        <li>Accès aux données strictement limité aux personnes autorisées et nécessaires ;</li>
+        <li>Surveillance régulière des systèmes pour détecter toute intrusion.</li>
+    </ul>
+
+    <!-- 5. Partage des données -->
+    <h2><i class="fas fa-user-shield"></i> 5. Partage des données</h2>
+    <div class="highlight-box">
+        <i class="fas fa-check-circle"></i>
+        <p>
+            <strong>Aucune donnée personnelle n'est partagée, vendue, louée ou transmise à des tiers</strong>, 
+            quelle qu'en soit la raison. Vos données restent strictement confidentielles et ne sont utilisées 
+            que dans le cadre décrit dans cette politique.
+        </p>
+    </div>
+    <p>
+        Les seules exceptions possibles (strictement encadrées par la loi) seraient :
+    </p>
+    <ul>
+        <li>Une obligation légale (réquisition judiciaire, autorité compétente) ;</li>
+        <li>La protection de nos droits en cas de litige.</li>
+    </ul>
+    <p>
+        Dans tous les cas, nous nous engageons à vous informer préalablement, sauf si la loi l'interdit.
+    </p>
+
+    <!-- 6. Suppression des données -->
+    <h2><i class="fas fa-trash-alt"></i> 6. Suppression de vos données à tout moment</h2>
+    
+    <div class="delete-box">
+        <i class="fas fa-user-slash"></i>
+        <div>
+            <p>
+                <strong>Droit absolu à l'effacement :</strong> Conformément au RGPD et à notre engagement éthique, 
+                vous pouvez <strong>supprimer tout ou partie de vos données à tout moment</strong>, 
+                <strong>sans justification</strong>, et <strong>gratuitement</strong>.
+            </p>
+        </div>
+    </div>
+
+    <h3>6.1 Comment supprimer vos données ?</h3>
+    <p>
+        La suppression de vos données s'effectue directement depuis les <strong>paramètres de votre compte Google Play</strong> 
+        ou depuis les <strong>paramètres de votre appareil Android</strong>. Voici la procédure :
+    </p>
+    <ol>
+        <li>
+            <strong>Depuis Google Play Store</strong> : Ouvrez l'application <em>Google Play Store</em> → 
+            Appuyez sur votre <em>photo de profil</em> → <em>Gérer les applications et l'appareil</em> → 
+            <em>Gérer</em> → Sélectionnez <strong>PRONO MASTER</strong> → <em>Désinstaller</em>.
+        </li>
+        <li>
+            <strong>Depuis les paramètres Android</strong> : Allez dans <em>Paramètres</em> → 
+            <em>Applications</em> → <strong>PRONO MASTER</strong> → <em>Stockage et cache</em> → 
+            <em>Effacer les données</em>.
+        </li>
+        <li>
+            <strong>Par e-mail</strong> : Envoyez votre demande à 
+            <a href="mailto:privacy@pronomaster.com">privacy@pronomaster.com</a>. 
+            Nous traiterons votre demande sous 72 heures ouvrées.
+        </li>
+    </ol>
+
+    <h3>6.2 Quelles données sont supprimées ?</h3>
+    <p>
+        Lorsque vous demandez la suppression, <strong>l'intégralité de vos données personnelles</strong> est effacée :
+    </p>
+    <ul>
+        <li>✅ Adresse e-mail et identifiants de connexion (si compte abonné) ;</li>
+        <li>✅ Mot de passe (déjà haché, définitivement effacé) ;</li>
+        <li>✅ Numéro de téléphone associé aux paiements ;</li>
+        <li>✅ Historique des pronostics et des transactions ;</li>
+        <li>✅ Préférences et paramètres de l'application ;</li>
+        <li>✅ Toute autre donnée vous concernant.</li>
+    </ul>
+
+    <h3>6.3 Délai de suppression</h3>
+    <p>
+        La suppression est <strong>effective immédiatement</strong> lorsque vous effacez les données 
+        depuis votre appareil ou le Play Store. Pour les demandes par e-mail, elle est traitée dans un 
+        <strong>délai maximum de 30 jours</strong>, conformément au RGPD.
+    </p>
+
+    <h3>6.4 Aucune donnée résiduelle</h3>
+    <div class="highlight-box">
+        <i class="fas fa-check-double"></i>
+        <p>
+            <strong>Zéro conservation :</strong> Aucune donnée résiduelle n'est conservée après suppression, 
+            à l'exception des logs de connexion strictement nécessaires au respect d'obligations légales 
+            (conservation maximale de 12 mois, puis suppression automatique).
+        </p>
+    </div>
+
+    <h3>6.5 Confirmation de suppression</h3>
+    <p>
+        Après suppression, vous recevrez un <strong>e-mail de confirmation</strong> (si vous aviez fourni 
+        une adresse e-mail) vous informant que l'ensemble de vos données a bien été effacé de nos systèmes.
+    </p>
+
+    <!-- 7. Durée de conservation -->
+    <h2><i class="fas fa-clock"></i> 7. Durée de conservation</h2>
+    <ul>
+        <li><strong>Compte abonné (email, mot de passe)</strong> : conservé tant que votre abonnement est actif. Supprimé immédiatement (ou sous 30 jours maximum) sur simple demande.</li>
+        <li><strong>Numéro de téléphone</strong> : conservé uniquement le temps nécessaire à la validation du paiement, puis supprimé.</li>
+        <li><strong>Position approximative</strong> : traitée en temps réel, non conservée.</li>
+        <li><strong>Logs de connexion</strong> : conservés 12 mois maximum pour des raisons de sécurité, puis supprimés automatiquement.</li>
+    </ul>
+    <div class="info-box">
+        <i class="fas fa-info-circle"></i>
+        <p>
+            <strong>Rappel :</strong> Vous pouvez demander la suppression de vos données <strong>à tout moment</strong>, 
+            même avant l'expiration de ces durées de conservation. Nous nous conformerons à votre demande 
+            dans les plus brefs délais.
+        </p>
+    </div>
+
+    <!-- 8. Vos droits -->
+    <h2><i class="fas fa-user-check"></i> 8. Vos droits</h2>
+    <p>
+        Conformément au Règlement Général sur la Protection des Données (RGPD) et aux lois applicables, 
+        vous disposez des droits suivants :
+    </p>
+    <ul>
+        <li><strong>Droit d'accès</strong> : obtenir une copie des données que nous détenons sur vous ;</li>
+        <li><strong>Droit de rectification</strong> : corriger toute donnée inexacte ;</li>
+        <li><strong>Droit à l'effacement</strong> (droit à l'oubli) : demander la suppression de vos données <strong>à tout moment</strong> ;</li>
+        <li><strong>Droit à la limitation</strong> : restreindre le traitement de vos données ;</li>
+        <li><strong>Droit à la portabilité</strong> : recevoir vos données dans un format structuré ;</li>
+        <li><strong>Droit d'opposition</strong> : vous opposer au traitement de vos données.</li>
+    </ul>
+    <p>
+        Pour exercer ces droits, contactez-nous à <a href="mailto:privacy@pronomaster.com">privacy@pronomaster.com</a>. 
+        Nous répondrons dans un délai maximum de 30 jours.
+    </p>
+
+    <!-- 9. Cookies -->
+    <h2><i class="fas fa-cookie-bite"></i> 9. Cookies et technologies similaires</h2>
+    <p>
+        L'Application peut utiliser des cookies strictement nécessaires à son fonctionnement 
+        (session utilisateur, préférences). Aucun cookie publicitaire ou de traçage tiers n'est utilisé.
+    </p>
+
+    <!-- 10. Mineurs -->
+    <h2><i class="fas fa-child"></i> 10. Protection des mineurs</h2>
+    <p>
+        L'Application n'est pas destinée aux personnes de moins de 18 ans. Nous ne collectons pas sciemment 
+        de données auprès de mineurs. Si vous pensez qu'un mineur nous a fourni des données, 
+        contactez-nous pour que nous les supprimions immédiatement.
+    </p>
+
+    <!-- 11. Modifications -->
+    <h2><i class="fas fa-edit"></i> 11. Modifications de cette politique</h2>
+    <p>
+        Nous pouvons mettre à jour cette Politique de Confidentialité pour refléter des changements 
+        dans nos pratiques ou pour des raisons légales. La date de dernière mise à jour sera toujours 
+        indiquée en haut de cette page. En cas de modification majeure, nous vous en informerons 
+        via l'Application ou par e-mail.
+    </p>
+
+    <!-- 12. Contact -->
+    <h2><i class="fas fa-envelope"></i> 12. Contact</h2>
+    <p>
+        Pour toute question, réclamation ou demande relative à cette politique ou à vos données personnelles :
+    </p>
+    <ul>
+        <li><i class="fas fa-envelope" style="color: #FFD966; margin-right: 8px;"></i> E-mail : <a href="mailto:privacy@pronomaster.com">privacy@pronomaster.com</a></li>
+        <li><i class="fas fa-globe" style="color: #FFD966; margin-right: 8px;"></i> Application : PRONO MASTER : Pmu & Sport</li>
+    </ul>
+
+    <!-- Rappel final sans bouton -->
+    <div class="delete-box" style="margin-top: 2.5rem;">
+        <i class="fas fa-shield-alt"></i>
+        <div>
+            <p>
+                <strong>Votre vie privée, votre contrôle.</strong> Vous pouvez supprimer vos données 
+                <strong>à tout moment</strong>, en toute simplicité et sans justification, directement 
+                depuis les paramètres de votre appareil ou du Google Play Store.
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2026 PRONO MASTER – Pmu & Sport. Tous droits réservés.</p>
+        <p style="margin-top: 0.5rem;">
+            <a href="#"><i class="fas fa-arrow-up"></i> Retour en haut</a>
+        </p>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="#" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Retour à l'application
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
